@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAISON AURELIA — Haute Horlogerie & Astronomical Sapphire Monoliths</title>
+  <meta name="description" content="Maison Aurelia handcrafts singular astronomical tourbillon timepieces carved from monolithic synthetic sapphire crystal and iron meteorite in Geneva." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            espresso: '#090807',
+            deepVelvet: '#0e0d0b',
+            parchment: '#f8f5ee',
+            champagne: '#dfd7c9',
+            roseGold: '#cfa282',
+            goldMuted: '#9e7e65',
+            noirBorder: 'rgba(255, 255, 255, 0.08)'
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            italiana: ['"Italiana"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            cinzel: ['"Cinzel"', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Cormorant Garamond, Italiana, Cinzel, Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Italiana&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #090807;
+      color: #f8f5ee;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Subtle Gold Hairline Borders */
+    .hairline-gold {
+      border-color: rgba(207, 162, 130, 0.25);
+    }
+
+    /* Dramatic Fashion Editorial Drop Cap */
+    .editorial-dropcap::first-letter {
+      font-family: 'Italiana', serif;
+      font-size: 5rem;
+      float: left;
+      line-height: 0.8;
+      margin-right: 0.75rem;
+      color: #cfa282;
+    }
+  </style>
+</head>
+
+<body class="relative bg-espresso text-parchment antialiased selection:bg-roseGold/20 selection:text-roseGold">
+
+  <!-- ========================================================================= -->
+  <!-- 1. HAUTE COUTURE NAVIGATION (Discreet, Haute Joaillerie Style) -->
+  <!-- ========================================================================= -->
+  <header class="fixed top-0 left-0 right-0 z-50 py-6 px-6 md:px-14 flex items-center justify-between transition-all duration-300 bg-espresso/80 backdrop-blur-md border-b border-white/5">
+    <!-- Brand Mark -->
+    <a href="#" class="flex items-center gap-4">
+      <div class="w-7 h-7 rounded-full border border-roseGold/40 flex items-center justify-center">
+        <span class="font-serif text-xs italic text-roseGold">Æ</span>
+      </div>
+      <div>
+        <span class="font-cinzel text-xs tracking-[0.35em] text-white uppercase block">MAISON AURELIA</span>
+        <span class="font-serif italic text-[10px] tracking-widest text-champagne/60 block">GENÈVE // PIÈCE UNIQUE</span>
+      </div>
+    </a>
+
+    <!-- Editorial Links -->
+    <nav class="hidden md:flex items-center gap-10 font-cinzel text-[11px] uppercase tracking-[0.25em] text-champagne/60">
+      <a href="#creation" class="hover:text-roseGold transition-colors">I. La Création</a>
+      <a href="#monolith" class="hover:text-roseGold transition-colors">II. Le Saphir</a>
+      <a href="#gallery" class="hover:text-roseGold transition-colors">III. Collection</a>
+      <a href="#salon" class="hover:text-roseGold transition-colors">IV. Private Salon</a>
+    </nav>
+
+    <!-- Navigation Switchers & Salon Appointment -->
+    <div class="flex items-center gap-3">
+      <a href="/index.html" class="hidden lg:inline-flex items-center font-cinzel text-[10px] uppercase tracking-wider text-champagne/40 hover:text-white border border-white/10 px-2.5 py-1.5 rounded-full bg-white/5 transition-all">
+        Valence
+      </a>
+      <a href="/valkyrie/index.html" class="hidden lg:inline-flex items-center font-cinzel text-[10px] uppercase tracking-wider text-champagne/40 hover:text-white border border-white/10 px-2.5 py-1.5 rounded-full bg-white/5 transition-all">
+        Valkyrie
+      </a>
+      <a href="/voyage/index.html" class="hidden sm:inline-flex items-center gap-1 font-cinzel text-[10px] uppercase tracking-wider text-roseGold hover:text-white border border-roseGold/40 px-3 py-1.5 rounded-full bg-roseGold/10 hover:bg-roseGold/20 transition-all font-semibold">
+        <span>Voyage 360°</span> &rarr;
+      </a>
+      <a href="#salon" class="font-cinzel text-[10px] uppercase tracking-[0.2em] px-4 py-2 rounded-full border border-roseGold/60 text-roseGold hover:bg-roseGold hover:text-espresso transition-all duration-300">
+        Salon Viewing
+      </a>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- 2. PINNED SPLIT-SCREEN RUNWAY ENGINE (50/50 Asymmetric Viewport) -->
+  <!-- ========================================================================= -->
+  <div id="hero-section" class="relative w-full border-b border-white/10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 min-h-screen">
+      
+      <!-- ===================================================================== -->
+      <!-- LEFT COLUMN: PINNED 100VH SAPPHIRE TIMEPIECE SCRUBBER -->
+      <!-- ===================================================================== -->
+      <div class="lg:col-span-6 lg:sticky lg:top-0 h-[70vh] lg:h-screen w-full bg-deepVelvet overflow-hidden flex items-center justify-center relative border-r border-white/10">
+        
+        <!-- Video Canvas Preloaded into Memory -->
+        <video id="hero-video" class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-90" playsinline muted preload="auto"></video>
+        
+        <!-- Vignette & Chiaroscuro Overlays -->
+        <div class="absolute inset-0 bg-radial-gradient from-transparent via-black/20 to-black/80 pointer-events-none"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-espresso via-transparent to-black/50 pointer-events-none"></div>
+
+        <!-- Coordinates HUD -->
+        <div class="absolute top-28 left-8 font-cinzel text-[10px] tracking-[0.3em] text-roseGold/80 flex items-center gap-2 pointer-events-none">
+          <span class="w-1.5 h-1.5 rounded-full bg-roseGold"></span>
+          CALIBRE Æ-01 // NO. 01/01
+        </div>
+
+        <div class="absolute bottom-8 left-8 right-8 flex items-center justify-between font-serif italic text-xs text-champagne/60 pointer-events-none">
+          <span>Carved from Single-Crystal Corundum</span>
+          <span>46° 12' N, 6° 09' E (Genève)</span>
+        </div>
+      </div>
+
+      <!-- ===================================================================== -->
+      <!-- RIGHT COLUMN: GRAND EDITORIAL NARRATIVE & MANIFESTO -->
+      <!-- ===================================================================== -->
+      <div id="narrative-column" class="lg:col-span-6 px-8 sm:px-16 lg:px-20 py-24 lg:py-36 space-y-32 bg-espresso">
+        
+        <!-- Opening Chapter -->
+        <div id="chapter-1" class="space-y-6 pt-10">
+          <span class="font-cinzel text-xs uppercase tracking-[0.35em] text-roseGold block">
+            CHAPITRE I // LE MONOLITHE TRANSLUCIDE
+          </span>
+          <h1 class="font-italiana text-4xl sm:text-6xl lg:text-7xl font-normal text-white leading-[1.05] tracking-tight">
+            Time Suspended in Pure Sapphire.
+          </h1>
+          <p class="font-serif text-lg sm:text-xl text-champagne/90 leading-relaxed font-light editorial-dropcap">
+            Born from an uncompromising obsession with visual zero-gravity. Maison Aurelia eliminates the traditional metal case, carving the entire structural housing from a 42-kilogram ingot of pure synthetic corundum. Over 900 hours of ultrasonic diamond-wheel milling reveal an unobstructed view of celestial mechanics in perpetual motion.
+          </p>
+          <div class="pt-4 flex items-center gap-6 font-cinzel text-[11px] text-roseGold tracking-[0.2em]">
+            <span>900 H MILLING</span>
+            <span class="text-white/20">/</span>
+            <span>9.0 MOHS HARDNESS</span>
+            <span class="text-white/20">/</span>
+            <span>PIÈCE UNIQUE</span>
+          </div>
+        </div>
+
+        <!-- Chapter 2: The Astronomical Tourbillon -->
+        <div id="chapter-2" class="space-y-6 border-t border-white/10 pt-16">
+          <span class="font-cinzel text-xs uppercase tracking-[0.35em] text-roseGold block">
+            CHAPITRE II // LE TOURBILLON CELESTE
+          </span>
+          <h2 class="font-italiana text-3xl sm:text-5xl lg:text-6xl font-normal text-white leading-tight">
+            Triple-Axis Gravitational Equilibrium.
+          </h2>
+          <p class="font-serif text-lg sm:text-xl text-champagne/90 leading-relaxed font-light">
+            At the heart of Calibre Æ-01 beats an astronomical triple-axis tourbillon carriage crafted in polished rose gold and blackened grade-5 titanium. Rotating on three independent concentric axes at 18, 42, and 120 seconds, it cancels the pulls of earth's gravity in all three physical dimensions simultaneously.
+          </p>
+          <blockquote class="border-l border-roseGold/60 pl-6 my-8 font-serif italic text-xl text-roseGold/90 leading-relaxed">
+            "We do not measure the passage of seconds; we carve a cathedral for their silence."
+          </blockquote>
+        </div>
+
+        <!-- Chapter 3: The Meteorite Dial -->
+        <div id="chapter-3" class="space-y-6 border-t border-white/10 pt-16 pb-12">
+          <span class="font-cinzel text-xs uppercase tracking-[0.35em] text-roseGold block">
+            CHAPITRE III // LA MATIÈRE STELLAIRE
+          </span>
+          <h2 class="font-italiana text-3xl sm:text-5xl lg:text-6xl font-normal text-white leading-tight">
+            Four Billion Years of Cosmic Solitude.
+          </h2>
+          <p class="font-serif text-lg sm:text-xl text-champagne/90 leading-relaxed font-light">
+            The dial is sliced directly from the core of the prehistoric Muonionalusta iron-nickel meteorite, which impacted the Arctic tundra over one million years ago. Acid-etched by hand in our Geneva workshop to expose the natural Widmanstätten crystalline crosshatch that exists nowhere on Earth.
+          </p>
+          <div class="pt-6">
+            <a href="#gallery" class="inline-flex items-center gap-3 font-cinzel text-xs uppercase tracking-[0.25em] text-roseGold hover:text-white transition-colors group">
+              <span>View Haute Horlogerie Gallery</span>
+              <span class="group-hover:translate-x-2 transition-transform">&rarr;</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 3. FULL-BLEED RUNWAY LOOKBOOK GALLERY (Section 2 - Zero Spec Tables) -->
+  <!-- ========================================================================= -->
+  <section id="gallery" class="py-32 px-6 md:px-14 bg-deepVelvet border-b border-white/10">
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Section Title -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-6">
+        <div>
+          <span class="font-cinzel text-xs uppercase tracking-[0.35em] text-roseGold block mb-3">GALLERIE DES CHEFS-D'ŒUVRE</span>
+          <h2 class="font-italiana text-4xl sm:text-6xl font-normal text-white leading-tight">
+            The Monolith Collection.
+          </h2>
+        </div>
+        <p class="font-serif italic text-base text-champagne/70 max-w-md">
+          Each creation is conceived as a solitary, unrepeatable work of mechanical sculpture. Limited to single-digit editions strictly produced upon private commission.
+        </p>
+      </div>
+
+      <!-- Haute Couture Lookbook Carousel Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        <!-- Primary Showcase (Large Full-Bleed Card) -->
+        <div class="lg:col-span-8 group relative rounded-sm overflow-hidden border border-white/10 bg-espresso flex flex-col justify-end min-h-[500px] md:min-h-[600px]">
+          <img src="./assets/monolith_gallery.jpg" alt="Maison Aurelia Monolith Timepiece in Gallery" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          <div class="absolute inset-0 bg-gradient-to-t from-espresso via-espresso/40 to-transparent"></div>
+          
+          <div class="relative p-8 md:p-12 space-y-3 z-10">
+            <span class="font-cinzel text-[11px] uppercase tracking-[0.3em] text-roseGold block">PIÈCE UNIQUE // SALON GENÈVE</span>
+            <h3 class="font-italiana text-3xl sm:text-4xl text-white">L'Astronomique Saphir Pur</h3>
+            <p class="font-serif text-sm sm:text-base text-champagne/80 max-w-xl font-light">
+              Solid synthetic sapphire case, hand-engraved 18k rose gold bridges, triple-axis astronomical escapement with celestial sidereal time indicator.
+            </p>
+          </div>
+        </div>
+
+        <!-- Secondary Showcase Column -->
+        <div class="lg:col-span-4 space-y-8 flex flex-col justify-between">
+          
+          <!-- Movement Macro Box with Live Looping Video -->
+          <div class="relative rounded-sm overflow-hidden border border-white/10 bg-black aspect-square flex items-center justify-center group">
+            <video class="w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-opacity" autoplay muted loop playsinline src="./assets/showcase.mp4"></video>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
+            
+            <div class="absolute bottom-4 left-4 right-4 z-10">
+              <span class="font-cinzel text-[9px] uppercase tracking-[0.25em] text-roseGold block">CALIBRE Æ-01 INTERIOR</span>
+              <h4 class="font-serif italic text-lg text-white">Hand-Anglage & Black Polish</h4>
+            </div>
+          </div>
+
+          <!-- Exhibition Narrative Card -->
+          <div class="p-8 rounded-sm border border-white/10 bg-espresso/60 space-y-4">
+            <span class="font-cinzel text-[10px] uppercase tracking-[0.3em] text-roseGold block">HANDCRAFTED ATELIER</span>
+            <h4 class="font-italiana text-2xl text-white">The Genevan Hallmark of Artistry</h4>
+            <p class="font-serif text-sm text-champagne/70 font-light leading-relaxed">
+              Every bridge angle is rounded and mirror-polished with gentian wood paste by a master horologist, reflecting light with absolute prismatic clarity through the transparent crystal case.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 4. ATELIER PHILOSOPHY & SCULPTURAL MANIFESTO (Section 3) -->
+  <!-- ========================================================================= -->
+  <section id="monolith" class="py-32 px-6 md:px-14 bg-espresso border-b border-white/10 relative overflow-hidden">
+    
+    <div class="max-w-5xl mx-auto text-center space-y-10 relative z-10">
+      <span class="font-cinzel text-xs uppercase tracking-[0.4em] text-roseGold block">LE MANIFESTE HORLOGER</span>
+      
+      <h2 class="font-italiana text-4xl sm:text-6xl md:text-7xl font-normal text-white leading-[1.1]">
+        "Transparency is the Highest Form of Luxury."
+      </h2>
+
+      <p class="font-serif text-lg sm:text-2xl text-champagne/80 font-light leading-relaxed max-w-3xl mx-auto italic">
+        We believe a timepiece should not conceal its mechanical soul behind opaque precious metals. In an age of ephemeral digital noise, the continuous, hypnotic ballet of a mechanical balance wheel encased in crystalline sapphire is an anchor to eternity.
+      </p>
+
+      <div class="pt-6 flex justify-center items-center gap-8 font-cinzel text-xs text-roseGold tracking-[0.25em]">
+        <span>GENÈVE</span>
+        <span class="text-white/20">•</span>
+        <span>PARIS</span>
+        <span class="text-white/20">•</span>
+        <span>TOKYO</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 5. PRIVATE SALON & CONCIERGE APPOINTMENT (Section 4) -->
+  <!-- ========================================================================= -->
+  <section id="salon" class="py-32 px-6 md:px-14 max-w-5xl mx-auto">
+    <div class="text-center mb-16 space-y-4">
+      <span class="font-cinzel text-xs uppercase tracking-[0.35em] text-roseGold block">ACQUISITION & COMMANDES PRIVÉES</span>
+      <h2 class="font-italiana text-4xl sm:text-6xl font-normal text-white">
+        Request a Private Salon Viewing.
+      </h2>
+      <p class="font-serif italic text-base text-champagne/70 max-w-lg mx-auto">
+        Due to the extreme artisanal constraints of ultrasonic sapphire carving, Maison Aurelia accepts only 12 bespoke commissions annually.
+      </p>
+    </div>
+
+    <!-- Private Invitation Form -->
+    <div class="p-8 sm:p-14 rounded-sm border border-white/10 bg-deepVelvet/90 shadow-2xl">
+      <form id="salon-form" onsubmit="handleSalonBooking(event)" class="space-y-8">
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <div class="space-y-2">
+            <label class="block font-cinzel text-[11px] uppercase tracking-[0.2em] text-champagne/80">Title & Full Name</label>
+            <input type="text" required placeholder="Lord / Lady / Dr. Julian Sterling" class="w-full px-4 py-3.5 bg-espresso border border-white/15 rounded-none text-sm text-white focus:outline-none focus:border-roseGold font-serif transition-colors" />
+          </div>
+          <div class="space-y-2">
+            <label class="block font-cinzel text-[11px] uppercase tracking-[0.2em] text-champagne/80">Private Concierge Email</label>
+            <input type="email" required placeholder="concierge@sterling-estates.ch" class="w-full px-4 py-3.5 bg-espresso border border-white/15 rounded-none text-sm text-white focus:outline-none focus:border-roseGold font-serif transition-colors" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <div class="space-y-2">
+            <label class="block font-cinzel text-[11px] uppercase tracking-[0.2em] text-champagne/80">Preferred Salon Location</label>
+            <select class="w-full px-4 py-3.5 bg-espresso border border-white/15 rounded-none text-sm text-white focus:outline-none focus:border-roseGold font-serif transition-colors">
+              <option>Private Atelier — Rue du Rhône, Genève</option>
+              <option>Salon Vendôme — Place Vendôme, Paris</option>
+              <option>Imperial Suite — Ginza, Tokyo</option>
+              <option>Private Residence Viewing (Worldwide Curated Travel)</option>
+            </select>
+          </div>
+          <div class="space-y-2">
+            <label class="block font-cinzel text-[11px] uppercase tracking-[0.2em] text-champagne/80">Timepiece of Interest</label>
+            <select class="w-full px-4 py-3.5 bg-espresso border border-white/15 rounded-none text-sm text-white focus:outline-none focus:border-roseGold font-serif transition-colors">
+              <option>L'Astronomique Saphir Pur (Unique Piece)</option>
+              <option>Édition Météorite Noire (Series of 5)</option>
+              <option>Bespoke Astronomical Complication Commission</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label class="block font-cinzel text-[11px] uppercase tracking-[0.2em] text-champagne/80">Bespoke Engraving & Case Specifications</label>
+          <textarea rows="3" placeholder="Specify any custom celestial constellation alignments, personal armorial engravings, or specific meteorite provenance preferences..." class="w-full px-4 py-3.5 bg-espresso border border-white/15 rounded-none text-sm text-white focus:outline-none focus:border-roseGold font-serif transition-colors"></textarea>
+        </div>
+
+        <div class="pt-4 text-center">
+          <button type="submit" id="salon-btn" class="w-full sm:w-auto px-12 py-4 border border-roseGold bg-roseGold text-espresso font-cinzel text-xs uppercase tracking-[0.3em] font-bold hover:bg-transparent hover:text-roseGold transition-all duration-300">
+            Submit Private Salon Inquiry &rarr;
+          </button>
+        </div>
+
+        <div id="salon-success" class="hidden p-6 border border-roseGold/40 bg-roseGold/10 text-roseGold font-serif text-sm text-center italic">
+          ✓ Your request for private salon viewing has been transmitted to the Master Horologist in Geneva. Our private curator will contact your office with encrypted credentials within 12 hours.
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 6. HIGH-FASHION MAISON FOOTER -->
+  <!-- ========================================================================= -->
+  <footer class="py-16 px-6 md:px-14 bg-black border-t border-white/10 text-champagne/60 font-serif">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
+      
+      <div class="space-y-2">
+        <span class="font-cinzel text-sm tracking-[0.35em] text-white uppercase block">MAISON AURELIA GENÈVE</span>
+        <p class="text-xs text-champagne/50">Haute Horlogerie & Astronomical Sapphire Monoliths. Rue du Rhône, 1204 Genève, Switzerland.</p>
+      </div>
+
+      <div class="flex items-center gap-8 font-cinzel text-[10px] uppercase tracking-[0.25em]">
+        <a href="#creation" class="hover:text-roseGold transition-colors">Création</a>
+        <a href="#monolith" class="hover:text-roseGold transition-colors">Manifeste</a>
+        <a href="#gallery" class="hover:text-roseGold transition-colors">Collection</a>
+        <a href="#salon" class="hover:text-roseGold transition-colors">Contact</a>
+      </div>
+
+    </div>
+
+    <div class="max-w-7xl mx-auto mt-12 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-[10px] font-cinzel tracking-widest text-champagne/30 gap-4">
+      <div>&copy; 2026 MAISON AURELIA S.A. TOUS DROITS RÉSERVÉS.</div>
+      <div>PIÈCE UNIQUE // HAUTE HORLOGERIE SUISSE</div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- 7. SPLIT-SCREEN PINNED VIDEO SCRUBBING JAVASCRIPT -->
+  <!-- ========================================================================= -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const heroVideo = document.getElementById('hero-video');
+      const heroSection = document.getElementById('hero-section');
+
+      // 1. In-Memory Blob Preloader with fallback
+      fetch('./assets/hero.mp4')
+        .then(res => {
+          if (!res.ok) throw new Error('Network response was not ok');
+          return res.blob();
+        })
+        .then(blob => {
+          heroVideo.src = URL.createObjectURL(blob);
+          heroVideo.load();
+        })
+        .catch(() => {
+          heroVideo.src = './assets/hero.mp4';
+          heroVideo.load();
+        });
+
+      // 2. Normalized Scroll Progress for Pinned Left Split Viewport
+      let targetProgress = 0;
+      let currentProgress = 0;
+
+      function updateScroll() {
+        const rect = heroSection.getBoundingClientRect();
+        const maxScroll = rect.height - window.innerHeight;
+        
+        if (maxScroll > 0) {
+          targetProgress = Math.max(0, Math.min(1, -rect.top / maxScroll));
+        }
+      }
+
+      window.addEventListener('scroll', updateScroll, { passive: true });
+      window.addEventListener('resize', updateScroll);
+      updateScroll();
+
+      // 3. Smooth Scrub Loop
+      function scrubLoop() {
+        currentProgress += (targetProgress - currentProgress) * 0.12;
+
+        // Seek Video smoothly through the 10s sapphire rotation
+        if (heroVideo.duration && !heroVideo.seeking) {
+          const targetTime = currentProgress * heroVideo.duration;
+          if (Math.abs(heroVideo.currentTime - targetTime) > 0.015) {
+            heroVideo.currentTime = targetTime;
+          }
+        }
+
+        requestAnimationFrame(scrubLoop);
+      }
+      requestAnimationFrame(scrubLoop);
+    });
+
+    function handleSalonBooking(e) {
+      e.preventDefault();
+      document.getElementById('salon-btn').classList.add('hidden');
+      document.getElementById('salon-success').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>VOYAGE OMNI-7 — Interactive 360° EV Studio Viewer</title>
+  <meta name="description" content="Explore the Voyage Omni-7 electric crossover SUV in an interactive 360-degree drag-to-rotate studio viewer." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            studioDark: '#0a0c10',
+            studioFloor: '#12151d',
+            panelBg: 'rgba(15, 18, 26, 0.92)',
+            panelBorder: 'rgba(255, 255, 255, 0.12)',
+            accentBlue: '#38bdf8',
+            accentGold: '#d4a359',
+            textMuted: '#94a3b8'
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"Space Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Space Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+    }
+    
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 35%, #1c202e 0%, #0a0c10 80%);
+      color: #f8fafc;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+
+    /* Hotspot Component */
+    .hotspot-container {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      z-index: 35;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+    }
+
+    .hotspot-container:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+      z-index: 45;
+    }
+
+    .pulse-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(56, 189, 248, 0.8);
+      animation: ripple 2s infinite cubic-bezier(0.2, 0.8, 0.4, 1);
+    }
+
+    @keyframes ripple {
+      0% { transform: translate(-50%, -50%) scale(0.6); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(2.4); opacity: 0; }
+    }
+
+    /* Floating Tooltip Label */
+    .hotspot-label {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      background: rgba(10, 12, 18, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #ffffff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      pointer-events: none;
+      transition: all 0.2s ease;
+    }
+
+    .hotspot-container:hover .hotspot-label {
+      background: rgba(56, 189, 248, 0.95);
+      color: #0a0c10;
+      border-color: #ffffff;
+      font-weight: 700;
+    }
+
+    /* Side Detail Panel */
+    .side-panel {
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    }
+    .side-panel.open {
+      transform: translateX(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .side-panel.closed {
+      transform: translateX(110%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Mode Pill Active Style */
+    .mode-pill-active {
+      background-color: #ffffff;
+      color: #0a0c10;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      font-weight: 700;
+    }
+  </style>
+</head>
+
+<body class="w-full h-full flex flex-col justify-between select-none relative">
+
+  <!-- ========================================================================= -->
+  <!-- 1. TOP HEADER -->
+  <!-- ========================================================================= -->
+  <header class="w-full z-40 px-6 py-5 flex items-center justify-between pointer-events-auto">
+    <!-- Brand / Model Title -->
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-sm bg-white/10 border border-white/20 flex items-center justify-center backdrop-blur-md shadow-xs">
+        <div class="w-3 h-3 bg-accentBlue rounded-xs"></div>
+      </div>
+      <div>
+        <h1 class="text-sm font-bold tracking-[0.2em] text-white uppercase">VOYAGE OMNI-7</h1>
+        <p class="text-[10px] font-mono tracking-widest text-textMuted uppercase">800V SMART EV CROSSOVER // STUDIO VIEWER</p>
+      </div>
+    </div>
+
+    <!-- Center Mode Switcher (Exterior / Interior) -->
+    <div class="inline-flex p-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-xl shadow-lg">
+      <button onclick="setMode('exterior')" id="btn-exterior" class="px-6 py-2 rounded-full text-xs tracking-wider transition-all duration-200 mode-pill-active">
+        EXTERIOR 360°
+      </button>
+      <button onclick="setMode('interior')" id="btn-interior" class="px-6 py-2 rounded-full text-xs tracking-wider text-slate-400 hover:text-white transition-all duration-200">
+        INTERIOR CABIN
+      </button>
+    </div>
+
+    <!-- Right Quick Actions & Hub Link -->
+    <div class="flex items-center gap-3 font-mono text-xs">
+      <a href="/index.html" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-textMuted hover:text-white transition-colors">
+        &larr; Portfolio Hub
+      </a>
+      <div class="px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-slate-300 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-accentBlue animate-pulse"></span>
+        <span id="angle-indicator">0° // EYE LEVEL</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- 2. MAIN 360 VIEWER STAGE CONTAINER -->
+  <!-- ========================================================================= -->
+  <main id="viewer-container" class="relative flex-1 w-full flex items-center justify-center cursor-grab active:cursor-grabbing overflow-hidden touch-none">
+    
+    <!-- Vehicle Image Container -->
+    <div class="relative w-full h-full max-w-7xl max-h-[85vh] flex items-center justify-center">
+      <img id="viewer-image" src="./assets/ext_az000_el1.png" alt="Voyage Omni-7 EV" class="w-full h-full object-contain pointer-events-none drop-shadow-2xl transition-opacity duration-100" />
+      
+      <!-- Interactive Hotspots Layer -->
+      <div id="hotspots-layer" class="absolute inset-0 pointer-events-auto"></div>
+    </div>
+
+    <!-- Drag Hint Indicator -->
+    <div id="drag-hint" class="absolute bottom-16 pointer-events-none transition-opacity duration-500 flex items-center gap-3 px-5 py-2.5 rounded-full bg-black/70 border border-white/15 backdrop-blur-md text-xs font-mono text-slate-200 shadow-2xl">
+      <svg class="w-4 h-4 text-accentBlue animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+      </svg>
+      <span>DRAG HORIZONTALLY TO ROTATE • DRAG VERTICALLY FOR ELEVATION</span>
+    </div>
+
+    <!-- Preloader Progress Overlay -->
+    <div id="preloader" class="absolute inset-0 bg-studioDark/95 backdrop-blur-md flex flex-col items-center justify-center z-50 transition-opacity duration-500">
+      <div class="w-12 h-12 border-2 border-white/10 border-t-accentBlue rounded-full animate-spin mb-4"></div>
+      <span class="font-mono text-xs uppercase tracking-[0.25em] text-white">PRELOADING 360° FRAME MATRIX</span>
+      <span id="preload-progress" class="font-mono text-[10px] text-textMuted mt-1">0%</span>
+    </div>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- 3. SLIDE-IN PART SPECIFICATION DRAWER -->
+  <!-- ========================================================================= -->
+  <aside id="side-panel" class="side-panel closed fixed top-20 right-6 bottom-20 w-80 sm:w-96 rounded-2xl bg-panelBg border border-panelBorder backdrop-blur-2xl p-6 z-50 flex flex-col justify-between shadow-2xl">
+    
+    <div>
+      <!-- Drawer Header -->
+      <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-accentBlue"></span>
+          <span id="panel-category" class="font-mono text-[10px] uppercase tracking-widest text-accentBlue">EXTERIOR COMPONENT</span>
+        </div>
+        <button onclick="closeSidePanel()" class="w-7 h-7 rounded-full bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white flex items-center justify-center transition-colors">
+          ✕
+        </button>
+      </div>
+
+      <!-- Drawer Content -->
+      <div class="space-y-4">
+        <h2 id="panel-title" class="text-xl font-bold text-white tracking-tight leading-snug">
+          Part Name Tag
+        </h2>
+        <p id="panel-desc" class="text-xs text-slate-300 leading-relaxed font-light">
+          Detailed description of the selected vehicle component and engineering architecture.
+        </p>
+
+        <!-- Dynamic Spec Highlights -->
+        <div id="panel-specs" class="pt-4 border-t border-white/10 grid grid-cols-2 gap-3 font-mono text-xs">
+          <div class="p-3 rounded-lg bg-white/5 border border-white/5">
+            <span id="spec1-label" class="text-[9px] text-textMuted uppercase block">PARAMETER</span>
+            <span id="spec1-val" class="text-white font-semibold">VALUE</span>
+          </div>
+          <div class="p-3 rounded-lg bg-white/5 border border-white/5">
+            <span id="spec2-label" class="text-[9px] text-textMuted uppercase block">PARAMETER</span>
+            <span id="spec2-val" class="text-white font-semibold">VALUE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer Footer -->
+    <div class="pt-6 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-textMuted">
+      <span>VOYAGE ARCHITECTURE</span>
+      <span class="text-accentGold">ACTIVE SELECTION</span>
+    </div>
+  </aside>
+
+  <!-- ========================================================================= -->
+  <!-- 4. BOTTOM TELEMETRY BAR & PRESET ANGLES -->
+  <!-- ========================================================================= -->
+  <footer class="w-full z-40 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4 pointer-events-auto bg-studioDark/80 backdrop-blur-md border-t border-white/5">
+    
+    <!-- Specs Ticker -->
+    <div class="flex items-center gap-6 font-mono text-xs text-slate-300">
+      <div>
+        <span class="text-textMuted text-[10px] block">PLATFORM</span>
+        <span>800V Silicon Carbide</span>
+      </div>
+      <div class="h-6 w-[1px] bg-white/10"></div>
+      <div>
+        <span class="text-textMuted text-[10px] block">RANGE (CLTC)</span>
+        <span class="text-emerald-400 font-semibold">720 KM</span>
+      </div>
+      <div class="h-6 w-[1px] bg-white/10"></div>
+      <div>
+        <span class="text-textMuted text-[10px] block">ACCELERATION</span>
+        <span>3.4s (0-100 km/h)</span>
+      </div>
+    </div>
+
+    <!-- Preset Quick Jump Angles -->
+    <div id="quick-angles" class="flex items-center gap-1.5 font-mono text-[10px]">
+      <button onclick="setAzimuth(0)" class="px-3 py-1.5 rounded-md bg-white/5 hover:bg-white/15 border border-white/10 text-slate-300 hover:text-white transition-colors">FRONT</button>
+      <button onclick="setAzimuth(45)" class="px-3 py-1.5 rounded-md bg-white/5 hover:bg-white/15 border border-white/10 text-slate-300 hover:text-white transition-colors">3/4 FRONT</button>
+      <button onclick="setAzimuth(90)" class="px-3 py-1.5 rounded-md bg-white/5 hover:bg-white/15 border border-white/10 text-slate-300 hover:text-white transition-colors">SIDE</button>
+      <button onclick="setAzimuth(150)" class="px-3 py-1.5 rounded-md bg-white/5 hover:bg-white/15 border border-white/10 text-slate-300 hover:text-white transition-colors">3/4 REAR</button>
+      <button onclick="setAzimuth(180)" class="px-3 py-1.5 rounded-md bg-white/5 hover:bg-white/15 border border-white/10 text-slate-300 hover:text-white transition-colors">REAR</button>
+    </div>
+
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- 5. INTERACTIVE 360 VIEWER & SMOOTH ROTATION ENGINE -->
+  <!-- ========================================================================= -->
+  <script>
+    // State Variables
+    let currentMode = 'exterior'; // 'exterior' | 'interior'
+    
+    // 12 Azimuth angles (0, 30, 60... 330)
+    const azimuthAngles = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
+    let currentAzimuthIdx = 0; // 0°
+    let currentElevation = 1;  // 0=low, 1=eye level, 2=high
+
+    // Interior Directions
+    const interiorDirections = ['forward', 'left45', 'left90', 'rear', 'right90', 'right45'];
+    let currentInteriorIdx = 0; // forward
+    let currentInteriorTilt = 'normal'; // 'up' | 'normal' | 'down'
+
+    // Drag Motion Tracking (Controlled & Smooth, zero skipping)
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let dragStartAzIdx = 0;
+    let dragStartElev = 1;
+    let dragStartIntIdx = 0;
+    let dragStartTilt = 'normal';
+    let hasInteracted = false;
+
+    // Sensitivity Settings (px per discrete frame change)
+    const SENSITIVITY_AZIMUTH = 65; // ~780px drag for a full 360° rotation (smooth & controlled)
+    const SENSITIVITY_ELEVATION = 110;
+
+    // Elements
+    const viewerContainer = document.getElementById('viewer-container');
+    const viewerImage = document.getElementById('viewer-image');
+    const hotspotsLayer = document.getElementById('hotspots-layer');
+    const dragHint = document.getElementById('drag-hint');
+    const preloader = document.getElementById('preloader');
+    const preloadProgress = document.getElementById('preload-progress');
+    const angleIndicator = document.getElementById('angle-indicator');
+    const sidePanel = document.getElementById('side-panel');
+
+    // =========================================================================
+    // COMPREHENSIVE HOTSPOT DATASET WITH VISIBLE NAME TAGS
+    // =========================================================================
+    const exteriorHotspots = [
+      // 1. Front (0° Azimuth)
+      {
+        azimuth: 0,
+        elevation: 1,
+        x: 50,
+        y: 49,
+        category: "LIGHTING SIGNATURE",
+        name: "Matrix Horizon LED Blade",
+        desc: "Full-width slim LED daytime running light bar with active welcome choreography and adaptive pixel illumination.",
+        spec1_label: "Beam Range", spec1_val: "600m High Beam",
+        spec2_label: "Technology", spec2_val: "Adaptive Matrix LED"
+      },
+      {
+        azimuth: 0,
+        elevation: 1,
+        x: 50,
+        y: 67,
+        category: "SENSOR CLUSTER",
+        name: "LiDAR & 4D Radar Pod",
+        desc: "Solid-state flush sensor array delivering 360-degree point-cloud vision for city navigation autopilot.",
+        spec1_label: "Range", spec1_val: "280 Meters",
+        spec2_label: "Array", spec2_val: "128-Line LiDAR"
+      },
+
+      // 2. Front 3/4 (30° & 60° Azimuth)
+      {
+        azimuth: 30,
+        elevation: 1,
+        x: 44,
+        y: 67,
+        category: "CHASSIS & WHEELS",
+        name: "21'' Aero Turbine Wheels",
+        desc: "Forged alloy turbine blades with integrated aerodynamic covers and Brembo regenerative 4-piston calipers.",
+        spec1_label: "Wheel Size", spec1_val: "21-Inch Forged",
+        spec2_label: "Brakes", spec2_val: "Brembo 4-Piston"
+      },
+      {
+        azimuth: 60,
+        elevation: 1,
+        x: 68,
+        y: 45,
+        category: "AERODYNAMICS",
+        name: "Flush Smart Door Handles",
+        desc: "Pop-out motorized aerodynamic handles with capacitive touch sensors and automatic approach unlock.",
+        spec1_label: "Drag Impact", spec1_val: "-0.008 Cd",
+        spec2_label: "Actuation", spec2_val: "Capacitive Servo"
+      },
+
+      // 3. Side Profile (90° Azimuth)
+      {
+        azimuth: 90,
+        elevation: 1,
+        x: 78,
+        y: 44,
+        category: "CHARGING PLATFORM",
+        name: "800V Ultra-Fast DC Port",
+        desc: "High-power silicon carbide charging port supporting up to 360 kW peak charging, recovering 400 km in 10 minutes.",
+        spec1_label: "Peak Power", spec1_val: "360 kW DC",
+        spec2_label: "10-80% Charge", spec2_val: "12 Minutes"
+      },
+      {
+        azimuth: 90,
+        elevation: 1,
+        x: 37,
+        y: 38,
+        category: "DIGITAL VISION",
+        name: "Aerodynamic Digital Mirrors",
+        desc: "High-definition streaming exterior cameras reducing lateral air vortex and delivering night-vision blind-spot feeds.",
+        spec1_label: "Resolution", spec1_val: "2K HDR Stream",
+        spec2_label: "Aero Gain", spec2_val: "+15 km Range"
+      },
+
+      // 4. Rear 3/4 (150° Azimuth)
+      {
+        azimuth: 150,
+        elevation: 1,
+        x: 65,
+        y: 43,
+        category: "REAR LIGHTING",
+        name: "Through-Type 3D OLED Taillight",
+        desc: "Continuous full-width OLED ribbon with multi-layer light guides and dynamic braking deceleration illumination.",
+        spec1_label: "Light Elements", spec1_val: "348 OLED Pixels",
+        spec2_label: "Design", spec2_val: "3D Light Ribbon"
+      },
+      {
+        azimuth: 150,
+        elevation: 1,
+        x: 43,
+        y: 67,
+        category: "CHASSIS & AERO",
+        name: "Rear Aero Diffuser",
+        desc: "Sculpted underbody airflow diffuser smoothing high-speed wake for exceptional stability at 200 km/h.",
+        spec1_label: "Downforce", spec1_val: "42 kg @ 160 km/h",
+        spec2_label: "Drag Cd", spec2_val: "0.228 Overall"
+      },
+
+      // 5. Direct Rear (180° Azimuth)
+      {
+        azimuth: 180,
+        elevation: 1,
+        x: 50,
+        y: 43,
+        category: "TAILGATE & AERO",
+        name: "Adaptive Ducktail Spoiler",
+        desc: "Integrated tailgate spoiler lip tuned for optimal boundary layer separation and zero lift over the rear axle.",
+        spec1_label: "Cargo Vol", spec1_val: "620L Trunk",
+        spec2_label: "Actuation", spec2_val: "Speed Adaptive"
+      }
+    ];
+
+    const interiorHotspots = [
+      // 1. Forward View
+      {
+        dir: 'forward',
+        tilt: 'normal',
+        x: 54,
+        y: 48,
+        category: "SMART INFOTAINMENT",
+        name: "15.6'' Floating 2.5K OLED Display",
+        desc: "Dual Qualcomm Snapdragon 8295 AI chipset running Voyage OS with multi-zone voice assistant and full satellite 3D navigation.",
+        spec1_label: "Display Panel", spec1_val: "15.6'' 2.5K OLED",
+        spec2_label: "Compute", spec2_val: "Dual Snapdragon 8295"
+      },
+      {
+        dir: 'forward',
+        tilt: 'normal',
+        x: 22,
+        y: 48,
+        category: "DIGITAL COCKPIT",
+        name: "10.25'' Instrument Cluster & AR-HUD",
+        desc: "High-definition driver display backed by a 50-inch augmented reality head-up display projecting navigation lanes onto the road.",
+        spec1_label: "HUD Virtual", spec1_val: "50-Inch AR Overlay",
+        spec2_label: "Resolution", spec2_val: "1080p Anti-Glare"
+      },
+      {
+        dir: 'forward',
+        tilt: 'normal',
+        x: 22,
+        y: 75,
+        category: "STEERING CONTROL",
+        name: "Two-Spoke Capacitive Steering Wheel",
+        desc: "D-cut perforated leather wheel with capacitive hands-off sensors, haptic scroll wheels, and electric 4-way adjustment.",
+        spec1_label: "Sensors", spec1_val: "Capacitive Hands-On",
+        spec2_label: "Features", spec2_val: "Heated / Haptic"
+      },
+      {
+        dir: 'forward',
+        tilt: 'normal',
+        x: 50,
+        y: 82,
+        category: "CONSOLE CONTROLLER",
+        name: "Dual 50W Wireless Chargers & Crystal Dial",
+        desc: "Air-cooled fast inductive docks and handcrafted diamond-cut crystal drive selector with backlit ambient facets.",
+        spec1_label: "Charging", spec1_val: "Dual 50W Air-Cooled",
+        spec2_label: "Selector", spec2_val: "Crystal Rotary"
+      },
+
+      // 2. Left 45 View
+      {
+        dir: 'left45',
+        tilt: 'normal',
+        x: 50,
+        y: 43,
+        category: "VISION DISPLAY",
+        name: "Digital Side Mirror Screen",
+        desc: "A-pillar mounted high-brightness OLED monitor streaming ultra-low-latency real-time video from exterior mirror cameras.",
+        spec1_label: "Screen", spec1_val: "7-Inch 120Hz OLED",
+        spec2_label: "Latency", spec2_val: "< 15 Milliseconds"
+      },
+      {
+        dir: 'left45',
+        tilt: 'normal',
+        x: 25,
+        y: 77,
+        category: "SPATIAL AUDIO",
+        name: "Dolby Atmos 23-Speaker Sound",
+        desc: "1,200W premium spatial audio system with headrest speakers, under-seat subwoofers, and active road noise cancellation.",
+        spec1_label: "Power", spec1_val: "1,200 Watts RMS",
+        spec2_label: "Channels", spec2_val: "7.1.4 Surround"
+      },
+
+      // 3. Sunroof / Up Tilt
+      {
+        dir: 'forward',
+        tilt: 'up',
+        x: 50,
+        y: 50,
+        category: "CANOPY ROOF",
+        name: "2.1 m² Electrochromic Glass Roof",
+        desc: "Dimmable smart panoramic canopy with 10 levels of light transmission and 99.9% UV/heat radiation rejection.",
+        spec1_label: "Glass Area", spec1_val: "2.1 Square Meters",
+        spec2_label: "Heat Block", spec2_val: "99.9% UV Rejection"
+      },
+
+      // 4. Console / Down Tilt
+      {
+        dir: 'forward',
+        tilt: 'down',
+        x: 50,
+        y: 35,
+        category: "CHARGING DOCKS",
+        name: "Dual 50W Qi Wireless Fast Charging",
+        desc: "Dual dedicated air-cooled phone bays with active cooling fans preventing smartphone overheating during rapid charging.",
+        spec1_label: "Charging Output", spec1_val: "50W + 50W Dual",
+        spec2_label: "Cooling", spec2_val: "Active Air Vents"
+      },
+      {
+        dir: 'forward',
+        tilt: 'down',
+        x: 50,
+        y: 68,
+        category: "DRIVE SELECTOR",
+        name: "Diamond-Cut Crystal Rotary Shifter",
+        desc: "Handcrafted crystal gear controller with haptic feedback, integrated electronic parking brake, and customizable ambient light ring.",
+        spec1_label: "Material", spec1_val: "Diamond Cut Glass",
+        spec2_label: "Feedback", spec2_val: "Haptic Click Matrix"
+      }
+    ];
+
+    // =========================================================================
+    // PRELOADER & INITIALIZATION
+    // =========================================================================
+    function getExteriorImagePath(azimuth, elevation) {
+      const azStr = String(azimuth).padStart(3, '0');
+      return `./assets/ext_az${azStr}_el${elevation}.png`;
+    }
+
+    function getInteriorImagePath(direction, tilt) {
+      if (tilt === 'up') return `./assets/int_sunroof.png`;
+      if (tilt === 'down') return `./assets/int_console.png`;
+      return `./assets/int_${direction}.png`;
+    }
+
+    async function preloadAllAssets() {
+      const allUrls = [];
+
+      // 36 Exterior frames
+      for (const az of azimuthAngles) {
+        for (let el = 0; el <= 2; el++) {
+          allUrls.push(getExteriorImagePath(az, el));
+        }
+      }
+
+      // 8 Interior frames
+      for (const dir of interiorDirections) {
+        allUrls.push(getInteriorImagePath(dir, 'normal'));
+      }
+      allUrls.push(getInteriorImagePath('forward', 'up'));
+      allUrls.push(getInteriorImagePath('forward', 'down'));
+
+      let loaded = 0;
+      const total = allUrls.length;
+
+      const promises = allUrls.map(url => {
+        return new Promise(resolve => {
+          const img = new Image();
+          img.src = url;
+          img.onload = () => {
+            loaded++;
+            preloadProgress.innerText = Math.round((loaded / total) * 100) + '%';
+            resolve();
+          };
+          img.onerror = () => {
+            loaded++;
+            resolve();
+          };
+        });
+      });
+
+      await Promise.all(promises);
+      preloader.classList.add('opacity-0');
+      setTimeout(() => preloader.classList.add('hidden'), 500);
+      updateView();
+    }
+
+    // =========================================================================
+    // VIEWPORT RENDER
+    // =========================================================================
+    function updateView() {
+      let activeUrl = "";
+
+      if (currentMode === 'exterior') {
+        const az = azimuthAngles[currentAzimuthIdx];
+        activeUrl = getExteriorImagePath(az, currentElevation);
+        const elevLabels = ['LOW ANGLE', 'EYE LEVEL', 'HIGH ANGLE'];
+        angleIndicator.innerText = `${az}° // ${elevLabels[currentElevation]}`;
+      } else {
+        const dir = interiorDirections[currentInteriorIdx];
+        activeUrl = getInteriorImagePath(dir, currentInteriorTilt);
+        const dirLabels = {
+          forward: 'COCKPIT FORWARD',
+          left45: 'DRIVER SIDE 45°',
+          left90: 'DRIVER DOOR',
+          rear: 'REAR CABIN',
+          right90: 'PASSENGER DOOR',
+          right45: 'PASSENGER SIDE 45°'
+        };
+        const tiltLabel = currentInteriorTilt === 'up' ? ' // SUNROOF' : (currentInteriorTilt === 'down' ? ' // CONSOLE' : '');
+        angleIndicator.innerText = `${dirLabels[dir] || dir.toUpperCase()}${tiltLabel}`;
+      }
+
+      viewerImage.src = activeUrl;
+      renderHotspots();
+    }
+
+    // =========================================================================
+    // HOTSPOTS RENDERING WITH VISIBLE NAME TAGS
+    // =========================================================================
+    function renderHotspots() {
+      hotspotsLayer.innerHTML = '';
+      if (isDragging) return; // Hide while moving
+
+      let visibleSpots = [];
+
+      if (currentMode === 'exterior') {
+        const currentAz = azimuthAngles[currentAzimuthIdx];
+        visibleSpots = exteriorHotspots.filter(h => {
+          const diff = Math.abs(h.azimuth - currentAz);
+          return (diff === 0 || diff === 15 || (h.azimuth === 45 && (currentAz === 30 || currentAz === 60)))
+                 && h.elevation === currentElevation;
+        });
+      } else {
+        const currentDir = interiorDirections[currentInteriorIdx];
+        visibleSpots = interiorHotspots.filter(h => {
+          return h.dir === currentDir && h.tilt === currentInteriorTilt;
+        });
+      }
+
+      visibleSpots.forEach(spot => {
+        const container = document.createElement('div');
+        container.className = 'hotspot-container';
+        container.style.left = `${spot.x}%`;
+        container.style.top = `${spot.y}%`;
+
+        container.innerHTML = `
+          <div class="relative flex items-center justify-center">
+            <div class="pulse-ring"></div>
+            <div class="w-4 h-4 rounded-full bg-accentBlue border-2 border-white shadow-xl flex items-center justify-center">
+              <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
+            </div>
+            <div class="hotspot-label">${spot.name}</div>
+          </div>
+        `;
+
+        container.onclick = (e) => {
+          e.stopPropagation();
+          openSidePanel(spot);
+        };
+
+        hotspotsLayer.appendChild(container);
+      });
+    }
+
+    function openSidePanel(spot) {
+      document.getElementById('panel-category').innerText = spot.category;
+      document.getElementById('panel-title').innerText = spot.name;
+      document.getElementById('panel-desc').innerText = spot.desc;
+
+      document.getElementById('spec1-label').innerText = spot.spec1_label;
+      document.getElementById('spec1-val').innerText = spot.spec1_val;
+      document.getElementById('spec2-label').innerText = spot.spec2_label;
+      document.getElementById('spec2-val').innerText = spot.spec2_val;
+
+      sidePanel.classList.remove('closed');
+      sidePanel.classList.add('open');
+    }
+
+    function closeSidePanel() {
+      sidePanel.classList.remove('open');
+      sidePanel.classList.add('closed');
+    }
+
+    // =========================================================================
+    // ACCURATE & SMOOTH DRAG ROTATION CONTROLLER (No Skipping / No Over-Speed)
+    // =========================================================================
+    function startDrag(clientX, clientY) {
+      isDragging = true;
+      dragStartX = clientX;
+      dragStartY = clientY;
+      dragStartAzIdx = currentAzimuthIdx;
+      dragStartElev = currentElevation;
+      dragStartIntIdx = currentInteriorIdx;
+      dragStartTilt = currentInteriorTilt;
+
+      if (!hasInteracted) {
+        hasInteracted = true;
+        dragHint.classList.add('opacity-0');
+        setTimeout(() => dragHint.classList.add('hidden'), 500);
+      }
+
+      // Hide hotspots during drag
+      hotspotsLayer.innerHTML = '';
+    }
+
+    function updateDrag(clientX, clientY) {
+      if (!isDragging) return;
+
+      const deltaX = clientX - dragStartX;
+      const deltaY = clientY - dragStartY;
+
+      if (currentMode === 'exterior') {
+        // Horizontal Drag -> Continuous Azimuth
+        const azOffset = Math.round(deltaX / SENSITIVITY_AZIMUTH);
+        let newAzIdx = (dragStartAzIdx - azOffset) % azimuthAngles.length;
+        if (newAzIdx < 0) newAzIdx += azimuthAngles.length;
+
+        // Vertical Drag -> Elevation
+        const elevOffset = Math.round(deltaY / SENSITIVITY_ELEVATION);
+        let newElev = Math.max(0, Math.min(2, dragStartElev - elevOffset));
+
+        if (newAzIdx !== currentAzimuthIdx || newElev !== currentElevation) {
+          currentAzimuthIdx = newAzIdx;
+          currentElevation = newElev;
+          updateView();
+        }
+      } else {
+        // Interior Pan
+        const dirOffset = Math.round(deltaX / SENSITIVITY_AZIMUTH);
+        let newDirIdx = (dragStartIntIdx - dirOffset) % interiorDirections.length;
+        if (newDirIdx < 0) newDirIdx += interiorDirections.length;
+
+        let newTilt = dragStartTilt;
+        if (deltaY < -SENSITIVITY_ELEVATION) {
+          newTilt = 'up';
+        } else if (deltaY > SENSITIVITY_ELEVATION) {
+          newTilt = 'down';
+        } else {
+          newTilt = 'normal';
+        }
+
+        if (newDirIdx !== currentInteriorIdx || newTilt !== currentInteriorTilt) {
+          currentInteriorIdx = newDirIdx;
+          currentInteriorTilt = newTilt;
+          updateView();
+        }
+      }
+    }
+
+    function endDrag() {
+      if (!isDragging) return;
+      isDragging = false;
+      setTimeout(renderHotspots, 100);
+    }
+
+    // Mouse Events
+    viewerContainer.addEventListener('mousedown', (e) => startDrag(e.clientX, e.clientY));
+    window.addEventListener('mousemove', (e) => updateDrag(e.clientX, e.clientY));
+    window.addEventListener('mouseup', endDrag);
+
+    // Touch Events
+    viewerContainer.addEventListener('touchstart', (e) => {
+      if (e.touches.length > 0) startDrag(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches.length > 0) updateDrag(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+
+    window.addEventListener('touchend', endDrag);
+
+    // =========================================================================
+    // MODE & ANGLE PRESETS
+    // =========================================================================
+    function setMode(mode) {
+      currentMode = mode;
+      closeSidePanel();
+
+      const btnExt = document.getElementById('btn-exterior');
+      const btnInt = document.getElementById('btn-interior');
+      const quickAngles = document.getElementById('quick-angles');
+
+      if (mode === 'exterior') {
+        btnExt.className = 'px-6 py-2 rounded-full text-xs tracking-wider transition-all duration-200 mode-pill-active';
+        btnInt.className = 'px-6 py-2 rounded-full text-xs tracking-wider text-slate-400 hover:text-white transition-all duration-200';
+        quickAngles.classList.remove('hidden');
+      } else {
+        btnInt.className = 'px-6 py-2 rounded-full text-xs tracking-wider transition-all duration-200 mode-pill-active';
+        btnExt.className = 'px-6 py-2 rounded-full text-xs tracking-wider text-slate-400 hover:text-white transition-all duration-200';
+        quickAngles.classList.add('hidden');
+      }
+
+      updateView();
+    }
+
+    function setAzimuth(angle) {
+      const idx = azimuthAngles.indexOf(angle);
+      if (idx !== -1) {
+        currentAzimuthIdx = idx;
+        currentElevation = 1;
+        updateView();
+      }
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', preloadAllAssets);
+  </script>
+</body>
+</html>

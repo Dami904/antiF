@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VALKYRIE C41 — Ultra-Lightweight Carbon Endurance Gravel Race Machine</title>
+  <meta name="description" content="Valkyrie C41 is a 740g Toray T1100G carbon monocoque gravel racing bicycle engineered for extreme 200+ mile ultra-endurance racing." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            noir: '#07080a',
+            basalt: '#0e1015',
+            carbonCard: '#13161f',
+            carbonBorder: 'rgba(255, 255, 255, 0.08)',
+            bronzeGold: '#d49b4b',
+            bronzeMuted: '#9e7336',
+            slateText: '#94a3b8',
+            rawCarbon: '#1c1f2b'
+          },
+          fontFamily: {
+            syne: ['"Syne"', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"Space Mono"', 'ui-monospace', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Syne, Plus Jakarta Sans, Space Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow-x: clip;
+      background-color: #07080a;
+      color: #f8fafc;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .phase-text {
+      will-change: opacity, transform;
+      pointer-events: none;
+    }
+
+    header.nav-scrolled {
+      background: rgba(7, 8, 10, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Subtle Carbon Weave Pattern */
+    .bg-carbon-grid {
+      background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    .tab-active {
+      background-color: #1a1d28;
+      border-color: #d49b4b;
+      color: #ffffff;
+      box-shadow: 0 0 20px -5px rgba(212, 155, 75, 0.2);
+    }
+  </style>
+</head>
+
+<body class="relative bg-noir text-slate-100 antialiased selection:bg-amber-900 selection:text-amber-100">
+
+  <!-- ========================================================================= -->
+  <!-- 1. NAVIGATION (Stealth Minimalist Header) -->
+  <!-- ========================================================================= -->
+  <header id="site-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-6 px-6 md:px-14 flex items-center justify-between">
+    <!-- Brand Logo -->
+    <a href="#" class="flex items-center gap-3 group">
+      <div class="w-6 h-6 border border-white/20 bg-black flex items-center justify-center rotate-45 group-hover:border-bronzeGold transition-colors">
+        <div class="w-2 h-2 bg-bronzeGold"></div>
+      </div>
+      <div>
+        <span class="font-syne text-base tracking-[0.25em] font-extrabold text-white uppercase block">VALKYRIE</span>
+        <span class="font-mono text-[9px] tracking-widest text-slateText uppercase block">C41 ULTRA GRAVEL</span>
+      </div>
+    </a>
+
+    <!-- 4 Focused Editorial Links -->
+    <nav class="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-widest text-slate-400">
+      <a href="#layup" class="hover:text-white transition-colors">01 / Layup</a>
+      <a href="#telemetry" class="hover:text-white transition-colors">02 / Race Simulator</a>
+      <a href="#cockpit" class="hover:text-white transition-colors">03 / Cockpit</a>
+      <a href="#geometry" class="hover:text-white transition-colors">04 / Geometry</a>
+    </nav>
+
+    <!-- Navigation Actions -->
+    <div class="flex items-center gap-2.5">
+      <a href="/index.html" class="hidden sm:inline-flex items-center font-mono text-[11px] uppercase tracking-wider text-slate-400 hover:text-white border border-white/10 px-2.5 py-1.5 rounded-sm bg-white/5 hover:bg-white/10 transition-all">
+        <span>Valence</span>
+      </a>
+      <a href="/aurelia/index.html" class="hidden sm:inline-flex items-center font-mono text-[11px] uppercase tracking-wider text-amber-400 hover:text-white border border-amber-500/20 px-2.5 py-1.5 rounded-sm bg-amber-500/10 hover:bg-amber-500/20 transition-all">
+        <span>Aurelia</span>
+      </a>
+      <a href="/voyage/index.html" class="hidden sm:inline-flex items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-sky-400 hover:text-white border border-sky-400/30 px-3 py-1.5 rounded-sm bg-sky-400/10 hover:bg-sky-400/20 transition-all font-semibold">
+        <span>Voyage 360°</span> &rarr;
+      </a>
+      <a href="#builder" class="inline-flex items-center justify-center font-mono text-xs uppercase tracking-wider px-4 py-1.5 rounded-sm border border-bronzeGold/50 bg-bronzeGold/10 text-bronzeGold hover:bg-bronzeGold hover:text-noir transition-all duration-200">
+        Reserve
+      </a>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- 2. HERO VIDEO SCRUB ENGINE (400vh Sticky Scroll Container) -->
+  <!-- ========================================================================= -->
+  <div id="hero-section" class="relative h-[400vh] w-full">
+    <div class="sticky top-0 w-full h-screen overflow-hidden flex items-center justify-center bg-black">
+      
+      <!-- Video Element with Hardware Acceleration -->
+      <video id="hero-video" class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-85" playsinline muted preload="auto"></video>
+      
+      <!-- Dark Cinematic Vignette Overlays -->
+      <div class="absolute inset-0 bg-gradient-to-t from-noir via-transparent to-black/60 pointer-events-none"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-noir/80 via-transparent to-noir/40 pointer-events-none"></div>
+
+      <!-- Left Vertical Live Telemetry Axis -->
+      <div class="absolute top-28 left-6 md:left-14 z-20 font-mono text-[11px] text-slate-400 space-y-4 pointer-events-none hidden sm:block">
+        <div class="border-l border-bronzeGold/50 pl-3">
+          <span class="text-[9px] uppercase tracking-widest text-slate-500 block">SIMULATED DISTANCE</span>
+          <span id="live-distance" class="text-white font-bold text-sm">0.0 KM</span>
+        </div>
+        <div class="border-l border-white/20 pl-3">
+          <span class="text-[9px] uppercase tracking-widest text-slate-500 block">FRAME DEFLECTION</span>
+          <span id="live-deflection" class="text-bronzeGold font-bold text-sm">0.0 MM</span>
+        </div>
+        <div class="border-l border-white/20 pl-3">
+          <span class="text-[9px] uppercase tracking-widest text-slate-500 block">AERO DRAG (CdA)</span>
+          <span class="text-white font-bold text-sm">0.284 m²</span>
+        </div>
+      </div>
+
+      <!-- ======================================================================= -->
+      <!-- PHASE 0: 0% - 25% Scroll (The Monocoque Opening) -->
+      <!-- ======================================================================= -->
+      <div id="phase-0" class="phase-text absolute bottom-20 left-6 md:left-14 max-w-2xl">
+        <div class="font-mono text-xs uppercase tracking-[0.3em] text-bronzeGold mb-3 font-semibold flex items-center gap-2">
+          <span class="w-1.5 h-1.5 bg-bronzeGold rotate-45"></span>
+          TORAY T1100G MONOCOQUE // 740G
+        </div>
+        <h1 class="font-syne text-4xl sm:text-6xl md:text-7xl font-extrabold text-white leading-[1.05] tracking-tight">
+          Born in Unforgiving Terrain.
+        </h1>
+        <p class="mt-4 font-sans text-sm sm:text-base text-slate-300 font-normal leading-relaxed max-w-xl">
+          Engineered for 200+ mile unpaved sufferfests. Raw high-modulus unidirectional carbon fused with shock-absorbing Dyneema fibers to eliminate fatigue over 14 hours of continuous hammering.
+        </p>
+      </div>
+
+      <!-- ======================================================================= -->
+      <!-- PHASE 1: 30% - 60% Scroll (Pivotless Compliance & Seatstays) -->
+      <!-- ======================================================================= -->
+      <div id="phase-1" class="phase-text absolute top-1/3 right-6 md:right-16 max-w-xl opacity-0 text-right md:text-left">
+        <div class="font-mono text-xs uppercase tracking-[0.3em] text-bronzeGold mb-3 font-semibold flex items-center justify-end md:justify-start gap-2">
+          <span class="w-1.5 h-1.5 bg-bronzeGold rotate-45"></span>
+          VERTICAL COMPLIANCE // 18MM MICRO-FLEX
+        </div>
+        <h2 class="font-syne text-3xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight tracking-tight">
+          Pivotless Compliance. Absolute Power Transfer.
+        </h2>
+        <p class="mt-4 font-sans text-sm sm:text-base text-slate-300 font-normal leading-relaxed">
+          Asymmetric flattened chainstays yield 18mm of passive vertical damping to smooth washboard gravel while maintaining a monolithic 86mm bottom bracket junction with zero torsional flex.
+        </p>
+        <div class="mt-6 flex items-center justify-end md:justify-start gap-8 font-mono text-xs text-slate-300">
+          <div>
+            <span class="block text-2xl font-syne text-white font-bold">18 mm</span>
+            <span class="text-[10px] text-slateText uppercase">Vertical Yield</span>
+          </div>
+          <div class="h-8 w-[1px] bg-white/20"></div>
+          <div>
+            <span class="block text-2xl font-syne text-bronzeGold font-bold">0.0 %</span>
+            <span class="text-[10px] text-slateText uppercase">BB Watt Loss</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================================= -->
+      <!-- PHASE 2: 65% - 95% Scroll (50mm Tire Clearance & Aerodynamics) -->
+      <!-- ======================================================================= -->
+      <div id="phase-2" class="phase-text absolute bottom-24 left-6 md:left-14 max-w-2xl opacity-0">
+        <div class="font-mono text-xs uppercase tracking-[0.3em] text-bronzeGold mb-3 font-semibold flex items-center gap-2">
+          <span class="w-1.5 h-1.5 bg-bronzeGold rotate-45"></span>
+          50MM CLEARANCE // ZERO DRAG PENALTY
+        </div>
+        <h2 class="font-syne text-3xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight tracking-tight">
+          Unbound Race Proven. Infinite Horizon.
+        </h2>
+        <p class="mt-4 font-sans text-sm sm:text-base text-slate-300 font-normal leading-relaxed max-w-xl">
+          Accommodates 50mm high-volume tires with 8mm of mud shedding buffer on each side. Truncated NACA aerofoils slice headwinds across the Kansas prairie.
+        </p>
+      </div>
+
+      <!-- Bottom Interactive Scroll Gauge -->
+      <div id="scroll-hint" class="absolute bottom-8 right-8 font-mono text-[10px] uppercase tracking-[0.25em] text-slate-400 flex items-center gap-3 pointer-events-none transition-opacity duration-300">
+        <span>Scroll to Traverse Layup Metrology</span>
+        <div class="w-5 h-5 border border-bronzeGold/60 rounded-xs flex items-center justify-center animate-pulse">
+          <span class="w-1.5 h-1.5 bg-bronzeGold"></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 3. CARBON FIBER LAYUP ARCHITECTURE (Section 1) -->
+  <!-- ========================================================================= -->
+  <section id="layup" class="py-32 px-6 md:px-14 max-w-7xl mx-auto border-t border-carbonBorder bg-noir relative">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      
+      <!-- Left Column: Layup Narrative -->
+      <div class="lg:col-span-5">
+        <span class="font-mono text-xs uppercase tracking-[0.25em] text-bronzeGold block mb-2">01 // Material Architecture</span>
+        <h2 class="font-syne text-3xl sm:text-5xl font-bold text-white leading-tight">
+          Toray T1100G & Dyneema Hybrid Matrix.
+        </h2>
+        <p class="mt-6 text-slate-400 font-sans leading-relaxed text-sm sm:text-base">
+          Every Valkyrie frame is hand-laid using 384 individual pre-preg carbon plies with targeted fiber orientation. Ultra-high tensile fibers at the head tube and bottom bracket provide laser-sharp steering accuracy, while woven Dyneema along the downtube shields against high-speed rock strikes.
+        </p>
+
+        <!-- Composite Highlights -->
+        <div class="mt-10 space-y-6">
+          <div class="border-l-2 border-bronzeGold pl-4">
+            <h3 class="font-syne text-base font-semibold text-white">Continuous Monocoque Front Triangle</h3>
+            <p class="text-xs text-slate-400 font-sans mt-1">Cured in high-pressure EPS silicone mandrels to eliminate internal resin voids and maintain uniform 0.9mm wall thickness.</p>
+          </div>
+          <div class="border-l-2 border-white/20 pl-4">
+            <h3 class="font-syne text-base font-semibold text-white">Dyneema Impact Shield Armor</h3>
+            <p class="text-xs text-slate-400 font-sans mt-1">Ultra-high-molecular-weight polyethylene fibers woven into the bottom bracket shield preventing catastrophic rock-puncture failures.</p>
+          </div>
+          <div class="border-l-2 border-white/20 pl-4">
+            <h3 class="font-syne text-base font-semibold text-white">Integrated Titanium Dropouts & Axle Sleeves</h3>
+            <p class="text-xs text-slate-400 font-sans mt-1">Direct-threaded Ti-6Al-4V titanium inserts preventing thread stripping over hundreds of wheel changes in dusty race conditions.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Layup Matrix Inspector -->
+      <div class="lg:col-span-7 space-y-6">
+        
+        <div class="rounded-xl overflow-hidden border border-carbonBorder bg-basalt p-8 relative">
+          
+          <div class="flex items-center justify-between border-b border-carbonBorder pb-6 mb-6">
+            <div>
+              <span class="font-mono text-[10px] uppercase tracking-wider text-bronzeGold block">Finite Element Layup Distribution</span>
+              <h4 class="font-syne text-xl font-bold text-white mt-1">Structural Zone Metrology</h4>
+            </div>
+            <span class="font-mono text-xs text-slate-400">740g Raw Frame (Size 54)</span>
+          </div>
+
+          <!-- 4 Interactive Carbon Layer Buttons -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+            <button onclick="setLayupZone(0)" id="zone-btn-0" class="p-3 rounded border text-left transition-all tab-active">
+              <span class="font-mono text-[10px] text-bronzeGold block">ZONE A</span>
+              <span class="font-syne text-xs font-bold block mt-1">BB86 Core</span>
+            </button>
+            <button onclick="setLayupZone(1)" id="zone-btn-1" class="p-3 rounded border border-carbonBorder bg-carbonCard text-left transition-all hover:border-white/40">
+              <span class="font-mono text-[10px] text-slate-500 block">ZONE B</span>
+              <span class="font-syne text-xs font-bold block mt-1">Downtube</span>
+            </button>
+            <button onclick="setLayupZone(2)" id="zone-btn-2" class="p-3 rounded border border-carbonBorder bg-carbonCard text-left transition-all hover:border-white/40">
+              <span class="font-mono text-[10px] text-slate-500 block">ZONE C</span>
+              <span class="font-syne text-xs font-bold block mt-1">Micro-Flex Stays</span>
+            </button>
+            <button onclick="setLayupZone(3)" id="zone-btn-3" class="p-3 rounded border border-carbonBorder bg-carbonCard text-left transition-all hover:border-white/40">
+              <span class="font-mono text-[10px] text-slate-500 block">ZONE D</span>
+              <span class="font-syne text-xs font-bold block mt-1">Head Tube</span>
+            </button>
+          </div>
+
+          <!-- Dynamic Zone Details Card -->
+          <div class="p-6 rounded-lg bg-carbonCard border border-carbonBorder">
+            <div class="flex items-center justify-between">
+              <h5 id="zone-title" class="font-syne text-base font-bold text-white">Zone A: Bottom Bracket Power Vault (BB86)</h5>
+              <span id="zone-metric" class="font-mono text-xs text-bronzeGold font-bold">142 N·m/deg Stiffness</span>
+            </div>
+            <p id="zone-desc" class="text-xs text-slate-400 font-sans mt-3 leading-relaxed">
+              Consists of 32 overlapping layers of Toray T1100G high-modulus unidirectional carbon oriented in a 0°/45°/90° quasi-isotropic weave to completely resist bottom bracket deflection under 1,200W seated or standing sprints.
+            </p>
+            
+            <div class="mt-6 pt-4 border-t border-white/10 grid grid-cols-3 gap-4 font-mono text-xs">
+              <div>
+                <span class="text-slate-500 block text-[9px] uppercase">Carbon Grade</span>
+                <span id="zone-spec-grade" class="font-bold text-white">Toray T1100G</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block text-[9px] uppercase">Fiber Modulus</span>
+                <span id="zone-spec-modulus" class="font-bold text-white">324 GPa</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block text-[9px] uppercase">Ply Count</span>
+                <span id="zone-spec-plies" class="font-bold text-white">32 Plies</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 4. INTERACTIVE ENDURANCE RACE TELEMETRY SIMULATOR (Section 2) -->
+  <!-- ========================================================================= -->
+  <section id="telemetry" class="py-32 px-6 md:px-14 bg-basalt border-t border-carbonBorder">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div>
+          <span class="font-mono text-xs uppercase tracking-[0.25em] text-bronzeGold block mb-2">02 // Race Validation</span>
+          <h2 class="font-syne text-3xl sm:text-5xl font-bold text-white leading-tight">
+            Endurance Course Simulator.
+          </h2>
+        </div>
+        <p class="font-sans text-sm text-slate-400 max-w-md">
+          Simulate Valkyrie C41 chassis parameters across the world’s most punishing self-supported ultra-gravel courses.
+        </p>
+      </div>
+
+      <!-- Interactive Race Selector & Visualizer -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center rounded-2xl border border-carbonBorder p-6 md:p-10 bg-noir">
+        
+        <!-- Video Showcase Loop / Visualizer -->
+        <div class="lg:col-span-7 relative rounded-xl overflow-hidden border border-carbonBorder aspect-video bg-black flex items-center justify-center shadow-2xl">
+          <video id="cockpit-video" class="w-full h-full object-cover" autoplay muted loop playsinline src="./assets/showcase.mp4"></video>
+          
+          <div class="absolute top-4 left-4 font-mono text-[10px] uppercase bg-black/70 backdrop-blur-md text-white px-3 py-1.5 rounded border border-white/10 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-bronzeGold animate-pulse"></span>
+            <span id="race-tag">UNBOUND GRAVEL 200 // KANSAS FLINT HILLS</span>
+          </div>
+
+          <div class="absolute bottom-4 right-4 font-mono text-[10px] bg-black/70 backdrop-blur-md text-slate-300 px-3 py-1.5 rounded border border-white/10">
+            RECORD: 9H 14M // 33.2 KM/H AVG
+          </div>
+        </div>
+
+        <!-- Race Selector & Telemetry Panel -->
+        <div class="lg:col-span-5 space-y-6">
+          
+          <div class="space-y-3">
+            <span class="font-mono text-[10px] uppercase tracking-wider text-slate-500 block mb-2">Select Race Terrain Profile:</span>
+            
+            <!-- Race 1 -->
+            <button onclick="switchRace(0)" id="race-btn-0" class="w-full text-left p-4 rounded border transition-all tab-active flex items-center justify-between">
+              <div>
+                <span class="font-syne text-sm font-bold block text-white">Unbound Gravel 200</span>
+                <span class="font-mono text-[11px] text-slate-400 block">Flint Hills, Kansas (200 Miles / 322 KM)</span>
+              </div>
+              <span class="font-mono text-xs text-bronzeGold font-bold">+22W Saved</span>
+            </button>
+
+            <!-- Race 2 -->
+            <button onclick="switchRace(1)" id="race-btn-1" class="w-full text-left p-4 rounded border border-carbonBorder bg-carbonCard text-slate-400 transition-all hover:bg-white/5 hover:text-white flex items-center justify-between">
+              <div>
+                <span class="font-syne text-sm font-bold block text-white">Silk Road Mountain Race</span>
+                <span class="font-mono text-[11px] text-slate-400 block">Tian Shan, Kyrgyzstan (1,800 KM / 30,500m)</span>
+              </div>
+              <span class="font-mono text-xs text-slate-400">34L Bagging</span>
+            </button>
+
+            <!-- Race 3 -->
+            <button onclick="switchRace(2)" id="race-btn-2" class="w-full text-left p-4 rounded border border-carbonBorder bg-carbonCard text-slate-400 transition-all hover:bg-white/5 hover:text-white flex items-center justify-between">
+              <div>
+                <span class="font-syne text-sm font-bold block text-white">The Badlands Desert</span>
+                <span class="font-mono text-[11px] text-slate-400 block">Gorafe Desert, Spain (780 KM / 15,000m)</span>
+              </div>
+              <span class="font-mono text-xs text-slate-400">50mm Sand</span>
+            </button>
+          </div>
+
+          <!-- Dynamic Telemetry Numbers -->
+          <div class="p-5 rounded-lg border border-carbonBorder bg-basalt">
+            <h4 id="race-name" class="font-syne text-base font-bold text-white">Unbound 200 Optimized Setup</h4>
+            <p id="race-desc" class="text-xs text-slate-400 font-sans mt-2 leading-relaxed">
+              Tuned for knife-like flint gravel and relentless crosswinds. 45mm fast-rolling tires with aero-optimized 4.5 deep section carbon wheels saving over 22 watts over 200 miles.
+            </p>
+            
+            <div class="mt-4 pt-4 border-t border-white/10 grid grid-cols-3 gap-3 font-mono text-[11px]">
+              <div>
+                <span class="text-slate-500 block text-[9px] uppercase">Tire Rec.</span>
+                <span id="race-tire" class="font-bold text-white">45mm @ 31 PSI</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block text-[9px] uppercase">Gearing</span>
+                <span id="race-gearing" class="font-bold text-white">42T x 10-44</span>
+              </div>
+              <div>
+                <span class="text-slate-500 block text-[9px] uppercase">Est. Elev.</span>
+                <span id="race-elev" class="font-bold text-white">3,200 m</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 5. COCKPIT & MICRO-ENGINEERING (Section 3) -->
+  <!-- ========================================================================= -->
+  <section id="cockpit" class="py-32 px-6 md:px-14 max-w-7xl mx-auto border-t border-carbonBorder">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Left Column: Cockpit Photography -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="rounded-xl overflow-hidden border border-carbonBorder bg-basalt shadow-2xl relative">
+          <img src="./assets/cockpit.jpg" alt="Valkyrie Carbon Aero Cockpit" class="w-full h-auto object-cover" />
+          <div class="absolute bottom-4 left-4 bg-black/80 backdrop-blur-md px-4 py-2 rounded border border-white/10 font-mono text-[11px] text-white">
+            AERO DROP BAR // 16° FLARED DROPS
+          </div>
+        </div>
+
+        <div class="rounded-xl overflow-hidden border border-carbonBorder bg-basalt shadow-2xl relative">
+          <img src="./assets/frame_macro.jpg" alt="Valkyrie Rear Triangle and Hydraulic Calipers" class="w-full h-auto object-cover" />
+          <div class="absolute bottom-4 left-4 bg-black/80 backdrop-blur-md px-4 py-2 rounded border border-white/10 font-mono text-[11px] text-white">
+            DIRECT FLAT MOUNT 160MM // TITANIUM THRU-AXLE
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Engineering Details -->
+      <div class="lg:col-span-5 space-y-8">
+        <div>
+          <span class="font-mono text-xs uppercase tracking-[0.25em] text-bronzeGold block mb-2">03 // Micro Engineering</span>
+          <h2 class="font-syne text-3xl sm:text-4xl font-bold text-white leading-tight">
+            Integrated Aero Cockpit & Wireless Architecture.
+          </h2>
+          <p class="mt-4 text-sm text-slate-400 leading-relaxed font-sans">
+            Zero exposed cables from levers to brake calipers. The one-piece Valkyrie aerobar routes hydraulic fluid through a custom headset bearing channel to prevent snagging on handlebar bags.
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          <div class="p-5 rounded-lg border border-carbonBorder bg-basalt">
+            <span class="font-syne text-sm font-bold text-white block mb-1">Out-Front Structural GPS Mount</span>
+            <p class="text-xs text-slate-400 font-sans leading-relaxed">Direct carbon-bolted computer mount rated to support high-intensity navigation head units and 1,200-lumen endurance night lights without vibration shake.</p>
+          </div>
+
+          <div class="p-5 rounded-lg border border-carbonBorder bg-basalt">
+            <span class="font-syne text-sm font-bold text-white block mb-1">Direct-Mount Flat Disc Braking</span>
+            <p class="text-xs text-slate-400 font-sans leading-relaxed">Engineered with finned heat-sink pads and 160mm floating rotors for relentless downhill braking control in driving rain and mud.</p>
+          </div>
+
+          <div class="p-5 rounded-lg border border-carbonBorder bg-basalt">
+            <span class="font-syne text-sm font-bold text-white block mb-1">CeramicSpeed BB86 Bottom Bracket</span>
+            <p class="text-xs text-slate-400 font-sans leading-relaxed">Dual-sealed low-friction ceramic bearings tested to withstand continuous submersion in glacial river crossings without contamination.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 6. ENDURANCE GEOMETRY MATRIX (Section 4) -->
+  <!-- ========================================================================= -->
+  <section id="geometry" class="py-32 px-6 md:px-14 bg-noir border-t border-carbonBorder">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="mb-14">
+        <span class="font-mono text-xs uppercase tracking-[0.25em] text-bronzeGold block mb-2">04 // Geometry & Fit</span>
+        <h2 class="font-syne text-3xl sm:text-5xl font-bold text-white leading-tight">
+          Precision Endurance Geometry Matrix.
+        </h2>
+        <p class="mt-4 text-sm text-slate-400 font-sans max-w-xl">
+          Longer wheelbase and slacker 70.5° head angle provide extreme high-speed stability on loose gravel descents without sacrificing responsive cornering.
+        </p>
+      </div>
+
+      <!-- Geometry Table -->
+      <div class="overflow-x-auto rounded-xl border border-carbonBorder bg-basalt">
+        <table class="w-full text-left font-sans text-xs border-collapse min-w-[700px]">
+          <thead>
+            <tr class="border-b border-carbonBorder bg-carbonCard font-mono text-[11px] uppercase tracking-wider text-slate-400">
+              <th class="py-4 px-6 font-medium">Metric / Size</th>
+              <th class="py-4 px-6 font-medium">49 cm (XS)</th>
+              <th class="py-4 px-6 font-medium">52 cm (S)</th>
+              <th class="py-4 px-6 font-medium text-bronzeGold">54 cm (M)</th>
+              <th class="py-4 px-6 font-medium">56 cm (L)</th>
+              <th class="py-4 px-6 font-medium">58 cm (XL)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-carbonBorder text-slate-300 font-mono">
+            <tr class="hover:bg-white/5 transition-colors">
+              <td class="py-4 px-6 font-semibold text-white">Stack (mm)</td>
+              <td class="py-4 px-6">540</td>
+              <td class="py-4 px-6">560</td>
+              <td class="py-4 px-6 text-bronzeGold font-bold">578</td>
+              <td class="py-4 px-6">598</td>
+              <td class="py-4 px-6">618</td>
+            </tr>
+            <tr class="hover:bg-white/5 transition-colors">
+              <td class="py-4 px-6 font-semibold text-white">Reach (mm)</td>
+              <td class="py-4 px-6">370</td>
+              <td class="py-4 px-6">380</td>
+              <td class="py-4 px-6 text-bronzeGold font-bold">388</td>
+              <td class="py-4 px-6">396</td>
+              <td class="py-4 px-6">404</td>
+            </tr>
+            <tr class="hover:bg-white/5 transition-colors">
+              <td class="py-4 px-6 font-semibold text-white">Head Tube Angle</td>
+              <td class="py-4 px-6">70.0°</td>
+              <td class="py-4 px-6">70.5°</td>
+              <td class="py-4 px-6 text-bronzeGold font-bold">70.5°</td>
+              <td class="py-4 px-6">71.0°</td>
+              <td class="py-4 px-6">71.5°</td>
+            </tr>
+            <tr class="hover:bg-white/5 transition-colors">
+              <td class="py-4 px-6 font-semibold text-white">Chainstay Length (mm)</td>
+              <td class="py-4 px-6">425</td>
+              <td class="py-4 px-6">425</td>
+              <td class="py-4 px-6 text-bronzeGold font-bold">425</td>
+              <td class="py-4 px-6">425</td>
+              <td class="py-4 px-6">425</td>
+            </tr>
+            <tr class="hover:bg-white/5 transition-colors">
+              <td class="py-4 px-6 font-semibold text-white">BB Drop (mm)</td>
+              <td class="py-4 px-6">77</td>
+              <td class="py-4 px-6">75</td>
+              <td class="py-4 px-6 text-bronzeGold font-bold">75</td>
+              <td class="py-4 px-6">73</td>
+              <td class="py-4 px-6">73</td>
+            </tr>
+            <tr class="hover:bg-white/5 transition-colors">
+              <td class="py-4 px-6 font-semibold text-white">Wheelbase (mm)</td>
+              <td class="py-4 px-6">1014</td>
+              <td class="py-4 px-6">1024</td>
+              <td class="py-4 px-6 text-bronzeGold font-bold">1032</td>
+              <td class="py-4 px-6">1042</td>
+              <td class="py-4 px-6">1054</td>
+            </tr>
+            <tr class="hover:bg-white/5 transition-colors">
+              <td class="py-4 px-6 font-semibold text-white">Max Tire Clearance</td>
+              <td class="py-4 px-6">700x50c</td>
+              <td class="py-4 px-6">700x50c</td>
+              <td class="py-4 px-6 text-bronzeGold font-bold">700x50c</td>
+              <td class="py-4 px-6">700x50c</td>
+              <td class="py-4 px-6">700x50c</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 7. BESPOKE BUILD CONFIGURATOR & RESERVATION (Section 5) -->
+  <!-- ========================================================================= -->
+  <section id="builder" class="py-32 px-6 md:px-14 max-w-7xl mx-auto border-t border-carbonBorder">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      
+      <!-- Left Column: Config Info -->
+      <div class="lg:col-span-5">
+        <span class="font-mono text-xs uppercase tracking-[0.25em] text-bronzeGold block mb-2">05 // Custom Build</span>
+        <h2 class="font-syne text-3xl sm:text-5xl font-bold text-white leading-tight">
+          Configure Your Valkyrie C41.
+        </h2>
+        <p class="mt-6 text-sm text-slate-400 font-sans leading-relaxed">
+          Each frameset is individually numbered and custom-built to your anatomical fit and component preference at our workshop in Brescia, Italy.
+        </p>
+
+        <!-- Live Calculation Box -->
+        <div class="mt-8 p-6 rounded-xl border border-carbonBorder bg-basalt space-y-4 font-mono">
+          <div class="flex items-center justify-between border-b border-carbonBorder pb-4">
+            <span class="text-xs text-slate-400 uppercase">Estimated Total Weight</span>
+            <span id="config-weight" class="text-xl font-syne font-bold text-white">6.85 KG</span>
+          </div>
+          <div class="flex items-center justify-between border-b border-carbonBorder pb-4">
+            <span class="text-xs text-slate-400 uppercase">Build Total (MSRP)</span>
+            <span id="config-price" class="text-xl font-syne font-bold text-bronzeGold">$11,400 USD</span>
+          </div>
+          <div class="flex items-center justify-between text-xs text-slate-500">
+            <span>Production Lead Time:</span>
+            <span class="text-white font-semibold">6 Weeks</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Bike Builder Form -->
+      <div class="lg:col-span-7 p-8 md:p-10 rounded-2xl border border-carbonBorder bg-basalt">
+        <form id="reservation-form" onsubmit="handleReservation(event)" class="space-y-6">
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block font-mono text-xs text-slate-300 uppercase tracking-wider mb-2">Rider Full Name</label>
+              <input type="text" required placeholder="Julian Vance" class="w-full px-4 py-3 rounded border border-carbonBorder bg-noir text-sm text-white focus:outline-none focus:border-bronzeGold transition-all font-sans" />
+            </div>
+            <div>
+              <label class="block font-mono text-xs text-slate-300 uppercase tracking-wider mb-2">Email Address</label>
+              <input type="email" required placeholder="julian@endurancerace.com" class="w-full px-4 py-3 rounded border border-carbonBorder bg-noir text-sm text-white focus:outline-none focus:border-bronzeGold transition-all font-sans" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block font-mono text-xs text-slate-300 uppercase tracking-wider mb-2">Frame Size</label>
+              <select onchange="updateBuildCalculations()" id="build-size" class="w-full px-4 py-3 rounded border border-carbonBorder bg-noir text-sm text-white focus:outline-none focus:border-bronzeGold transition-all font-sans">
+                <option value="54">Size 54 cm (Rider 174-182 cm)</option>
+                <option value="49">Size 49 cm (Rider 160-168 cm)</option>
+                <option value="52">Size 52 cm (Rider 168-175 cm)</option>
+                <option value="56">Size 56 cm (Rider 181-188 cm)</option>
+                <option value="58">Size 58 cm (Rider 187-195 cm)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-mono text-xs text-slate-300 uppercase tracking-wider mb-2">Electronic Groupset</label>
+              <select onchange="updateBuildCalculations()" id="build-group" class="w-full px-4 py-3 rounded border border-carbonBorder bg-noir text-sm text-white focus:outline-none focus:border-bronzeGold transition-all font-sans">
+                <option value="sram-red">SRAM RED XPLR AXS 1x13 (Power Meter)</option>
+                <option value="shimano-grx">Shimano GRX Di2 2x12 (Dual Sided)</option>
+                <option value="campy-ekar">Campagnolo Ekar GT 1x13 Mechanical</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block font-mono text-xs text-slate-300 uppercase tracking-wider mb-2">Carbon Wheelset</label>
+              <select onchange="updateBuildCalculations()" id="build-wheels" class="w-full px-4 py-3 rounded border border-carbonBorder bg-noir text-sm text-white focus:outline-none focus:border-bronzeGold transition-all font-sans">
+                <option value="zipp-303">Zipp 303 XPLR Carbon (32mm Hookless)</option>
+                <option value="enve-g23">ENVE G23 Ultra-Light Climbing (1,305g)</option>
+                <option value="dtswiss-1200">DT Swiss GRC 1100 Dicut Aero 50</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-mono text-xs text-slate-300 uppercase tracking-wider mb-2">Finish & Decal Theme</label>
+              <select class="w-full px-4 py-3 rounded border border-carbonBorder bg-noir text-sm text-white focus:outline-none focus:border-bronzeGold transition-all font-sans">
+                <option>Raw Stealth Matte UD Carbon (Gold Accents)</option>
+                <option>High-Gloss Flake Glaze (Titanium Silver)</option>
+                <option>Desert Ochre Dust (Matte Earth Weave)</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" id="reserve-btn" class="w-full py-4 rounded bg-bronzeGold text-noir font-mono text-xs uppercase tracking-widest hover:bg-white transition-colors font-bold shadow-lg">
+            Reserve Custom Build Slot &rarr;
+          </button>
+
+          <div id="reserve-success" class="hidden p-4 rounded bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 text-xs font-mono text-center">
+            ✓ Reservation received. A master bike fitter from the Valkyrie Works team will contact you within 24 hours with your GDSII schedule and geometry sheet.
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 8. BRUTALIST RACING FOOTER -->
+  <!-- ========================================================================= -->
+  <footer class="py-16 px-6 md:px-14 bg-noir border-t border-carbonBorder">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+      
+      <div>
+        <div class="flex items-center gap-3">
+          <div class="w-5 h-5 border border-white/20 bg-black flex items-center justify-center rotate-45">
+            <div class="w-2 h-2 bg-bronzeGold"></div>
+          </div>
+          <span class="font-syne text-sm tracking-[0.25em] font-extrabold text-white uppercase">VALKYRIE RACING WORKS</span>
+        </div>
+        <p class="mt-2 text-xs text-slate-500 font-sans">
+          Engineered for Ultra-Distance Gravel Competition. Handcrafted in Brescia & Boulder.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-8 font-mono text-xs text-slate-400">
+        <a href="#layup" class="hover:text-white transition-colors">Layup</a>
+        <a href="#telemetry" class="hover:text-white transition-colors">Courses</a>
+        <a href="#cockpit" class="hover:text-white transition-colors">Cockpit</a>
+        <a href="#geometry" class="hover:text-white transition-colors">Geometry</a>
+        <span class="text-slate-700">|</span>
+        <span class="text-slate-500">UCI Homologated</span>
+      </div>
+
+    </div>
+    
+    <div class="max-w-7xl mx-auto mt-10 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-slate-600 gap-4">
+      <div>&copy; 2026 Valkyrie Bicycles LLC. All rights reserved.</div>
+      <div>Designed with Antigravity Oneshot Hero Scaffold & Omni Engine.</div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- 9. VIDEO SCRUBBING ENGINE & PROGRESS-LOCKED JAVASCRIPT -->
+  <!-- ========================================================================= -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const heroVideo = document.getElementById('hero-video');
+      const heroSection = document.getElementById('hero-section');
+      const nav = document.getElementById('site-nav');
+      const phase0 = document.getElementById('phase-0');
+      const phase1 = document.getElementById('phase-1');
+      const phase2 = document.getElementById('phase-2');
+      const scrollHint = document.getElementById('scroll-hint');
+      const liveDist = document.getElementById('live-distance');
+      const liveDeflection = document.getElementById('live-deflection');
+
+      // 1. In-Memory Blob Preloader with fallback
+      fetch('./assets/hero.mp4')
+        .then(res => {
+          if (!res.ok) throw new Error('Video network response was not ok');
+          return res.blob();
+        })
+        .then(blob => {
+          heroVideo.src = URL.createObjectURL(blob);
+          heroVideo.load();
+        })
+        .catch(() => {
+          heroVideo.src = './assets/hero.mp4';
+          heroVideo.load();
+        });
+
+      // 2. Normalized Scroll Progress
+      let targetProgress = 0;
+      let currentProgress = 0;
+
+      function updateScroll() {
+        const rect = heroSection.getBoundingClientRect();
+        const maxScroll = rect.height - window.innerHeight;
+        
+        if (maxScroll > 0) {
+          targetProgress = Math.max(0, Math.min(1, -rect.top / maxScroll));
+        }
+
+        // Header style update
+        if (window.scrollY > 60) {
+          nav.classList.add('nav-scrolled');
+        } else {
+          nav.classList.remove('nav-scrolled');
+        }
+
+        // Scroll Hint
+        if (window.scrollY > 100 && scrollHint) {
+          scrollHint.style.opacity = '0';
+        } else if (scrollHint) {
+          scrollHint.style.opacity = '1';
+        }
+      }
+
+      window.addEventListener('scroll', updateScroll, { passive: true });
+      window.addEventListener('resize', updateScroll);
+      updateScroll();
+
+      // 3. Mathematical Progress-Locked Opacity Calculator
+      function calcOpacity(progress, enterStart, enterEnd, exitStart, exitEnd) {
+        if (progress < enterStart || progress > exitEnd) return 0;
+        if (progress < enterEnd) return (progress - enterStart) / (enterEnd - enterStart);
+        if (progress > exitStart) return Math.max(0, 1 - (progress - exitStart) / (exitEnd - exitStart));
+        return 1.0;
+      }
+
+      // 4. Smooth Scrub Loop
+      function scrubLoop() {
+        currentProgress += (targetProgress - currentProgress) * 0.15;
+
+        // Seek Video
+        if (heroVideo.duration && !heroVideo.seeking) {
+          const targetTime = currentProgress * heroVideo.duration;
+          if (Math.abs(heroVideo.currentTime - targetTime) > 0.015) {
+            heroVideo.currentTime = targetTime;
+          }
+        }
+
+        // Lock Typography directly to exact scroll progress points
+        const op0 = calcOpacity(targetProgress, 0.0, 0.04, 0.22, 0.30);
+        const op1 = calcOpacity(targetProgress, 0.32, 0.42, 0.58, 0.68);
+        const op2 = calcOpacity(targetProgress, 0.68, 0.78, 0.92, 0.99);
+
+        if (phase0) {
+          phase0.style.opacity = op0.toFixed(3);
+          phase0.style.transform = `translateY(${-targetProgress * 45}px)`;
+        }
+        if (phase1) {
+          phase1.style.opacity = op1.toFixed(3);
+          phase1.style.transform = `translateY(${(0.48 - targetProgress) * 35}px)`;
+        }
+        if (phase2) {
+          phase2.style.opacity = op2.toFixed(3);
+          phase2.style.transform = `translateY(${(0.82 - targetProgress) * 35}px)`;
+        }
+
+        // Live Telemetry Stream
+        if (liveDist) {
+          liveDist.innerText = (targetProgress * 200.0).toFixed(1) + " KM";
+        }
+        if (liveDeflection) {
+          const def = (Math.sin(targetProgress * Math.PI * 4) * 8.5 + 9.5).toFixed(1);
+          liveDeflection.innerText = def + " MM";
+        }
+
+        requestAnimationFrame(scrubLoop);
+      }
+      requestAnimationFrame(scrubLoop);
+    });
+
+    // =========================================================================
+    // 10. INTERACTIVE LAYUP ZONE CONTROLLER
+    // =========================================================================
+    const zoneData = [
+      {
+        title: "Zone A: Bottom Bracket Power Vault (BB86)",
+        metric: "142 N·m/deg Stiffness",
+        desc: "Consists of 32 overlapping layers of Toray T1100G high-modulus unidirectional carbon oriented in a 0°/45°/90° quasi-isotropic weave to completely resist bottom bracket deflection under 1,200W seated or standing sprints.",
+        grade: "Toray T1100G",
+        modulus: "324 GPa",
+        plies: "32 Plies"
+      },
+      {
+        title: "Zone B: Dyneema Downtube Impact Shield",
+        metric: "450 J Impact Deflection",
+        desc: "Co-woven ultra-high molecular weight Dyneema matrix prevents rock fracture while housing an internal 800ml hydration bladder and integrated flat repair kit.",
+        grade: "Dyneema + T800",
+        modulus: "210 GPa",
+        plies: "24 Plies"
+      },
+      {
+        title: "Zone C: Micro-Flex Flattened Seatstays",
+        metric: "18mm Vertical Yield",
+        desc: "Ultra-thin hollow flattened carbon stays allow the rear axle to float upward over washboards without adding the 400g weight penalty of a mechanical suspension pivot.",
+        grade: "High-Elongation M40J",
+        modulus: "377 GPa",
+        plies: "16 Plies"
+      },
+      {
+        title: "Zone D: Monocoque Tapered Head Tube",
+        metric: "115 N·m/deg Torsion",
+        desc: "1.5 to 1.125 inch tapered carbon head tube with integrated internal cable guides ensuring zero steering vagueness on 60 km/h loose gravel descents.",
+        grade: "Toray T1100G",
+        modulus: "324 GPa",
+        plies: "28 Plies"
+      }
+    ];
+
+    function setLayupZone(index) {
+      for (let i = 0; i < 4; i++) {
+        const btn = document.getElementById(`zone-btn-${i}`);
+        if (i === index) {
+          btn.className = "p-3 rounded border text-left transition-all tab-active";
+          btn.querySelector('span:first-child').className = "font-mono text-[10px] text-bronzeGold block";
+        } else {
+          btn.className = "p-3 rounded border border-carbonBorder bg-carbonCard text-left transition-all hover:border-white/40";
+          btn.querySelector('span:first-child').className = "font-mono text-[10px] text-slate-500 block";
+        }
+      }
+
+      const data = zoneData[index];
+      document.getElementById('zone-title').innerText = data.title;
+      document.getElementById('zone-metric').innerText = data.metric;
+      document.getElementById('zone-desc').innerText = data.desc;
+      document.getElementById('zone-spec-grade').innerText = data.grade;
+      document.getElementById('zone-spec-modulus').innerText = data.modulus;
+      document.getElementById('zone-spec-plies').innerText = data.plies;
+    }
+
+    // =========================================================================
+    // 11. INTERACTIVE RACE SIMULATOR
+    // =========================================================================
+    const raceData = [
+      {
+        tag: "UNBOUND GRAVEL 200 // KANSAS FLINT HILLS",
+        name: "Unbound 200 Optimized Setup",
+        desc: "Tuned for knife-like flint gravel and relentless prairie crosswinds. 45mm fast-rolling tires on 4.5 deep section aero wheels saving over 22 watts over 200 miles.",
+        tire: "45mm @ 31 PSI",
+        gearing: "42T x 10-44",
+        elev: "3,200 m"
+      },
+      {
+        tag: "SILK ROAD MOUNTAIN RACE // KYRGYZSTAN TIAN SHAN",
+        name: "Silk Road Ultra-Expedition Rig",
+        desc: "Engineered for freezing river fords, mountain passes exceeding 4,000m, and zero resupply for 400km. 50mm knobby tires with internal frame dynamo routing.",
+        tire: "50mm @ 26 PSI",
+        gearing: "38T x 10-52",
+        elev: "30,500 m"
+      },
+      {
+        tag: "THE BADLANDS // GORAFE DESERT SPAIN",
+        name: "Badlands Ultra-Speed Configuration",
+        desc: "High-heat ceramic bearing seals and double-wrapped carbon tape for extreme thermal resistance across loose volcanic scree and sand washes.",
+        tire: "48mm @ 28 PSI",
+        gearing: "40T x 10-46",
+        elev: "15,000 m"
+      }
+    ];
+
+    function switchRace(index) {
+      for (let i = 0; i < 3; i++) {
+        const btn = document.getElementById(`race-btn-${i}`);
+        if (i === index) {
+          btn.className = "w-full text-left p-4 rounded border transition-all tab-active flex items-center justify-between";
+        } else {
+          btn.className = "w-full text-left p-4 rounded border border-carbonBorder bg-carbonCard text-slate-400 transition-all hover:bg-white/5 hover:text-white flex items-center justify-between";
+        }
+      }
+
+      const data = raceData[index];
+      document.getElementById('race-tag').innerText = data.tag;
+      document.getElementById('race-name').innerText = data.name;
+      document.getElementById('race-desc').innerText = data.desc;
+      document.getElementById('race-tire').innerText = data.tire;
+      document.getElementById('race-gearing').innerText = data.gearing;
+      document.getElementById('race-elev').innerText = data.elev;
+    }
+
+    // =========================================================================
+    // 12. BUILD CONFIGURATOR & PRICING CALCULATOR
+    // =========================================================================
+    function updateBuildCalculations() {
+      const group = document.getElementById('build-group').value;
+      const wheels = document.getElementById('build-wheels').value;
+      
+      let baseWeight = 6.85;
+      let basePrice = 11400;
+
+      if (group === 'shimano-grx') {
+        baseWeight += 0.22;
+        basePrice -= 600;
+      } else if (group === 'campy-ekar') {
+        baseWeight -= 0.05;
+        basePrice -= 1200;
+      }
+
+      if (wheels === 'enve-g23') {
+        baseWeight -= 0.15;
+        basePrice += 400;
+      } else if (wheels === 'dtswiss-1200') {
+        baseWeight += 0.08;
+        basePrice += 200;
+      }
+
+      document.getElementById('config-weight').innerText = baseWeight.toFixed(2) + " KG";
+      document.getElementById('config-price').innerText = "$" + basePrice.toLocaleString() + " USD";
+    }
+
+    function handleReservation(e) {
+      e.preventDefault();
+      document.getElementById('reserve-btn').classList.add('hidden');
+      document.getElementById('reserve-success').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
