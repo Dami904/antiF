@@ -1,0 +1,4 @@
+file '../valence/assets/hero.mp4'
+file '../valkyrie/assets/hero.mp4'
+file '../aurelia/assets/hero.mp4'
+file 'voyage_clip.mp4'
