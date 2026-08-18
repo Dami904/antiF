@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VALENCE MICROSYSTEMS — High-Density Substrates & Custom Silicon</title>
+  <meta name="description" content="Valence Microsystems engineers ultra-dense ceramic substrates, custom neural silicon accelerators, and co-packaged optical motherboard platforms for exascale computing." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            alabaster: '#fafafc',
+            surface: '#ffffff',
+            slateSubtle: '#64748b',
+            obsidian: '#090b10',
+            siliconGold: '#c69b59',
+            titanium: '#8f94a6',
+            traceBorder: 'rgba(0, 0, 0, 0.08)',
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+            tech: ['"Space Grotesk"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Space Grotesk, Plus Jakarta Sans, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow-x: clip;
+      background-color: #fafafc;
+      color: #0f172a;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .phase-text {
+      will-change: opacity, transform;
+      pointer-events: none;
+    }
+
+    header.nav-scrolled {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.03);
+    }
+
+    /* Substrate Trace Pattern Overlay */
+    .bg-microtrace {
+      background-image: radial-gradient(rgba(198, 155, 89, 0.12) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    /* Precision Tab Active Styling */
+    .tab-active {
+      background-color: #ffffff;
+      color: #090b10;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      border-color: rgba(198, 155, 89, 0.4);
+    }
+
+    /* Subtle Technical Glow */
+    .gold-accent-border {
+      border-left: 2px solid #c69b59;
+    }
+  </style>
+</head>
+
+<body class="relative bg-alabaster antialiased selection:bg-amber-100 selection:text-amber-900">
+
+  <!-- ========================================================================= -->
+  <!-- 1. NAVIGATION BAR (Clean, editorial, strictly <= 4 links + single quiet CTA) -->
+  <!-- ========================================================================= -->
+  <header id="site-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5 px-6 md:px-14 flex items-center justify-between">
+    <!-- Brand Logo -->
+    <a href="#" class="flex items-center gap-3 group">
+      <div class="w-7 h-7 rounded-sm border border-slate-300 bg-white flex items-center justify-center shadow-xs">
+        <div class="w-3 h-3 bg-obsidian group-hover:bg-siliconGold transition-colors"></div>
+      </div>
+      <div>
+        <span class="font-tech text-sm tracking-[0.2em] font-bold text-obsidian uppercase block">VALENCE</span>
+        <span class="font-mono text-[9px] tracking-widest text-slateSubtle uppercase block">MICROSYSTEMS</span>
+      </div>
+    </a>
+
+    <!-- 4 Focused Editorial Links -->
+    <nav class="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-wider text-slate-600">
+      <a href="#substrate" class="hover:text-obsidian transition-colors">01 / Substrate</a>
+      <a href="#die-matrix" class="hover:text-obsidian transition-colors">02 / Die Architecture</a>
+      <a href="#platform" class="hover:text-obsidian transition-colors">03 / Platform</a>
+      <a href="#specifications" class="hover:text-obsidian transition-colors">04 / Specifications</a>
+    </nav>
+
+    <!-- Navigation Actions -->
+    <div class="flex items-center gap-2.5">
+      <a href="/valkyrie/index.html" class="hidden sm:inline-flex items-center font-mono text-[11px] uppercase tracking-wider text-slate-600 hover:text-obsidian border border-slate-200 px-3 py-1.5 rounded-full bg-white hover:bg-slate-50 transition-all shadow-xs">
+        <span>Valkyrie</span>
+      </a>
+      <a href="/aurelia/index.html" class="hidden sm:inline-flex items-center font-mono text-[11px] uppercase tracking-wider text-amber-800 hover:text-amber-950 border border-amber-200 px-3 py-1.5 rounded-full bg-amber-50 hover:bg-amber-100 transition-all shadow-xs">
+        <span>Aurelia</span>
+      </a>
+      <a href="/voyage/index.html" class="hidden sm:inline-flex items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-sky-700 hover:text-sky-900 border border-sky-200 px-3 py-1.5 rounded-full bg-sky-50 hover:bg-sky-100 transition-all shadow-xs font-semibold">
+        <span>Voyage 360°</span> &rarr;
+      </a>
+      <a href="#tapeout" class="inline-flex items-center justify-center font-mono text-xs uppercase tracking-wider px-4 py-1.5 rounded-full border border-slate-300 bg-white hover:border-obsidian hover:bg-obsidian hover:text-white transition-all shadow-xs">
+        Tapeout
+      </a>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- 2. HERO VIDEO SCRUB ENGINE (400vh Sticky Scroll Container) -->
+  <!-- ========================================================================= -->
+  <div id="hero-section" class="relative h-[400vh] w-full">
+    <div class="sticky top-0 w-full h-screen overflow-hidden flex items-center justify-center bg-white">
+      
+      <!-- Video Element with Hardware Acceleration -->
+      <video id="hero-video" class="absolute inset-0 w-full h-full object-cover pointer-events-none" playsinline muted preload="auto"></video>
+      
+      <!-- Soft Editorial Light Gradients -->
+      <div class="absolute inset-0 bg-gradient-to-t from-alabaster via-transparent to-white/70 pointer-events-none"></div>
+      <div class="absolute inset-0 bg-radial-gradient from-transparent via-white/10 to-white/50 pointer-events-none"></div>
+
+      <!-- Top Metadata Badge -->
+      <div class="absolute top-24 left-6 md:left-14 font-mono text-[10px] uppercase tracking-[0.25em] text-slate-500 pointer-events-none flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-siliconGold"></span>
+        AURORA X1 ARCHITECTURE // REV 3.0
+      </div>
+
+      <!-- ======================================================================= -->
+      <!-- PHASE 0: 0% - 25% Scroll (Opening Monolithic Statement) -->
+      <!-- ======================================================================= -->
+      <div id="phase-0" class="phase-text absolute bottom-20 left-6 md:left-14 max-w-2xl">
+        <div class="font-mono text-xs uppercase tracking-widest text-siliconGold mb-3 font-semibold">
+          [ 01 // PHYSICAL FOUNDATION ]
+        </div>
+        <h1 class="font-tech text-4xl sm:text-6xl md:text-7xl font-light text-obsidian leading-[1.08] tracking-tight">
+          The Architecture of Pure Conduction.
+        </h1>
+        <p class="mt-4 font-sans text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-xl">
+          Monolithic neural silicon bonded directly to atomic-layer ceramic substrates. Eliminating interconnect latency for next-generation exascale intelligence.
+        </p>
+      </div>
+
+      <!-- ======================================================================= -->
+      <!-- PHASE 1: 30% - 60% Scroll (Die & Micro-trace Narrative) -->
+      <!-- ======================================================================= -->
+      <div id="phase-1" class="phase-text absolute top-1/3 right-6 md:right-16 max-w-xl opacity-0 text-right md:text-left">
+        <div class="font-mono text-xs uppercase tracking-widest text-siliconGold mb-3 font-semibold">
+          [ 02 // SUB-MICRON INTERCONNECT ]
+        </div>
+        <h2 class="font-tech text-3xl sm:text-5xl md:text-6xl font-light text-obsidian leading-tight tracking-tight">
+          Ultra-Dense Gold & Copper Topologies.
+        </h2>
+        <p class="mt-4 font-sans text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
+          Class-10 metallization with sub-micron line pitches. 1.8 TB/s bi-directional die-to-die bandwidth with near-zero parasitic capacitance.
+        </p>
+        <div class="mt-6 flex items-center justify-end md:justify-start gap-6 font-mono text-xs text-slate-700">
+          <div>
+            <span class="block text-xl font-tech text-obsidian font-semibold">0.8 µm</span>
+            <span class="text-[10px] text-slateSubtle uppercase">Trace Pitch</span>
+          </div>
+          <div class="h-6 w-[1px] bg-slate-200"></div>
+          <div>
+            <span class="block text-xl font-tech text-obsidian font-semibold">&lt; 0.12 ps</span>
+            <span class="text-[10px] text-slateSubtle uppercase">Propagation Skew</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================================= -->
+      <!-- PHASE 2: 65% - 95% Scroll (Thermal Equilibrium & System Scalability) -->
+      <!-- ======================================================================= -->
+      <div id="phase-2" class="phase-text absolute bottom-24 left-6 md:left-14 max-w-2xl opacity-0">
+        <div class="font-mono text-xs uppercase tracking-widest text-siliconGold mb-3 font-semibold">
+          [ 03 // THERMAL EQUILIBRIUM ]
+        </div>
+        <h2 class="font-tech text-3xl sm:text-5xl md:text-6xl font-light text-obsidian leading-tight tracking-tight">
+          Cryogenic Precision. Unbounded Throughput.
+        </h2>
+        <p class="mt-4 font-sans text-sm sm:text-base text-slate-600 font-normal leading-relaxed max-w-xl">
+          Engineered with direct thermal copper vias and vapor chambers to sustain continuous 400A loads across high-concurrency matrix calculations without thermal throttling.
+        </p>
+      </div>
+
+      <!-- Scroll Prompt Indicator -->
+      <div id="scroll-hint" class="absolute bottom-8 right-8 font-mono text-[10px] uppercase tracking-[0.2em] text-slate-400 flex items-center gap-3 pointer-events-none transition-opacity duration-300">
+        <span>Scroll to Explore Die Metrology</span>
+        <div class="w-4 h-4 border border-slate-300 rounded-full flex items-center justify-center animate-bounce">
+          <span class="w-1 h-1 bg-obsidian rounded-full"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 3. PHYSICAL SUBSTRATE ENGINEERING (Section 1) -->
+  <!-- ========================================================================= -->
+  <section id="substrate" class="relative py-32 px-6 md:px-14 max-w-7xl mx-auto border-t border-slate-200">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      
+      <!-- Section Label & Heading -->
+      <div class="lg:col-span-5">
+        <span class="font-mono text-xs uppercase tracking-[0.25em] text-siliconGold block mb-2">01 // Material Science</span>
+        <h2 class="font-tech text-3xl sm:text-5xl font-light text-obsidian leading-tight">
+          Ceramic Matrix & High-Density Interconnects.
+        </h2>
+        <p class="mt-6 text-slate-600 font-sans leading-relaxed text-sm sm:text-base">
+          Standard FR4 PCB materials collapse under the extreme dielectric losses of multi-gigahertz optical and neuromorphic interconnects. Valence utilizes proprietary alumina-zirconia ceramic substrates with isotropic coefficient of thermal expansion matching single-crystal silicon.
+        </p>
+
+        <!-- Technical Highlights -->
+        <div class="mt-10 space-y-6">
+          <div class="gold-accent-border pl-4">
+            <h3 class="font-tech text-base font-semibold text-obsidian">Atomic-Layer Trace Metallization</h3>
+            <p class="text-xs text-slate-500 font-sans mt-1">Direct copper and gold sputter deposition achieving 99.999% purity and sub-surface roughness under 25 nm.</p>
+          </div>
+          <div class="gold-accent-border pl-4">
+            <h3 class="font-tech text-base font-semibold text-obsidian">Isotropic Dielectric Loss Tangent</h3>
+            <p class="text-xs text-slate-500 font-sans mt-1">Loss tangent tan &delta; = 0.0004 at 112 GHz PAM4 signaling, reducing signal degradation by 74% over Teflon substrates.</p>
+          </div>
+          <div class="gold-accent-border pl-4">
+            <h3 class="font-tech text-base font-semibold text-obsidian">Integrated Thermal Copper Pillars</h3>
+            <p class="text-xs text-slate-500 font-sans mt-1">Continuous solid-copper thermal conduits conducting 380 W/(m&middot;K) straight from the die micro-bumps to carrier heatsinks.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual Metric Showcase (Clean, Typography & High-Res Micro-Photography) -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="relative rounded-xl overflow-hidden border border-slate-200 bg-white shadow-xs">
+          <img src="/valence/assets/hero_ref.jpg" alt="Valence Aurora X1 Ceramic Motherboard" class="w-full h-80 sm:h-96 object-cover" />
+          <div class="p-6 bg-white/95 backdrop-blur-md border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <span class="font-mono text-[10px] uppercase tracking-wider text-slate-400 block">Substrate Specification</span>
+              <h4 class="font-tech text-base font-semibold text-obsidian">Valence Gen-3 Al2O3-Zr High-Frequency Motherboard</h4>
+            </div>
+            <div class="flex items-center gap-6 font-mono text-xs">
+              <div>
+                <span class="text-slateSubtle block text-[10px]">Layers</span>
+                <span class="text-obsidian font-semibold">28 HDI Stack</span>
+              </div>
+              <div>
+                <span class="text-slateSubtle block text-[10px]">Die Gap</span>
+                <span class="text-obsidian font-semibold">12.5 µm Bump</span>
+              </div>
+              <div>
+                <span class="text-slateSubtle block text-[10px]">CTE Mismatch</span>
+                <span class="text-obsidian font-semibold">&lt; 0.15 ppm/K</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 Grid Spec Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="p-6 rounded-xl border border-slate-200 bg-white">
+            <span class="font-mono text-[10px] uppercase tracking-wider text-siliconGold block mb-1">Sub-Nanosecond VRM</span>
+            <h4 class="font-tech text-lg font-medium text-obsidian">Embedded Power Stages</h4>
+            <p class="text-xs text-slate-500 mt-2 leading-relaxed">Integrated GaN power converters sitting directly under the die cavity to eliminate dI/dt voltage drop under sudden computational spikes.</p>
+          </div>
+          <div class="p-6 rounded-xl border border-slate-200 bg-white">
+            <span class="font-mono text-[10px] uppercase tracking-wider text-siliconGold block mb-1">Zero-Contact Optical</span>
+            <h4 class="font-tech text-lg font-medium text-obsidian">Photonic Micro-Interposer</h4>
+            <p class="text-xs text-slate-500 mt-2 leading-relaxed">Direct laser diode alignment trenches etched onto the substrate edges for 3.2 Tbps optical wavelength multiplexing.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 4. DIE ARCHITECTURE & INTERACTIVE INSPECTOR (Section 2) -->
+  <!-- ========================================================================= -->
+  <section id="die-matrix" class="py-32 px-6 md:px-14 bg-white border-t border-slate-200">
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Section Title -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div>
+          <span class="font-mono text-xs uppercase tracking-[0.25em] text-siliconGold block mb-2">02 // Silicon Metrology</span>
+          <h2 class="font-tech text-3xl sm:text-5xl font-light text-obsidian leading-tight">
+            Aurora Bare Silicon Die Matrix.
+          </h2>
+        </div>
+        <p class="font-sans text-sm text-slate-600 max-w-md">
+          Inspect the physical sub-blocks of the Aurora X1 accelerator. Switch between die layers to view telemetry, bandwidth parameters, and silicon floorplan allocation.
+        </p>
+      </div>
+
+      <!-- Interactive Silicon Explorer -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center rounded-2xl border border-slate-200 p-6 md:p-10 bg-alabaster">
+        
+        <!-- Video Showcase Loop / Die Visualizer -->
+        <div class="lg:col-span-7 relative rounded-xl overflow-hidden border border-slate-200 bg-black aspect-video flex items-center justify-center shadow-md group">
+          <video id="showcase-video" class="w-full h-full object-cover" autoplay muted loop playsinline src="/valence/assets/showcase.mp4"></video>
+          
+          <!-- Die Telemetry HUD Overlay -->
+          <div class="absolute top-4 left-4 font-mono text-[10px] uppercase bg-black/60 backdrop-blur-md text-white/90 px-3 py-1.5 rounded-sm border border-white/10 flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span id="active-layer-tag">LAYER 01: NEURAL TENSOR ARRAY</span>
+          </div>
+
+          <div class="absolute bottom-4 right-4 font-mono text-[10px] bg-black/60 backdrop-blur-md text-white/70 px-3 py-1.5 rounded-sm border border-white/10">
+            TSMN-912 // 3nm MONOLITHIC
+          </div>
+        </div>
+
+        <!-- Layer Selector & Telemetry Panel -->
+        <div class="lg:col-span-5 flex flex-col justify-between space-y-6">
+          
+          <!-- Interactive Selector Tabs -->
+          <div class="space-y-2">
+            <span class="font-mono text-[10px] uppercase tracking-wider text-slateSubtle block mb-3">Select Die Micro-Architecture Layer:</span>
+            
+            <!-- Tab 1 -->
+            <button onclick="switchDieLayer(0)" id="tab-0" class="w-full text-left p-4 rounded-lg border border-slate-200 transition-all tab-active flex items-center justify-between">
+              <div>
+                <span class="font-tech text-sm font-semibold block text-obsidian">01. Neural Tensor Cores</span>
+                <span class="font-mono text-[11px] text-slate-500 block">Mixed-precision FP8/BF16 matrix accelerators</span>
+              </div>
+              <span class="font-mono text-xs text-siliconGold font-semibold">1,024 TFLOPS</span>
+            </button>
+
+            <!-- Tab 2 -->
+            <button onclick="switchDieLayer(1)" id="tab-1" class="w-full text-left p-4 rounded-lg border border-slate-200 bg-white/60 text-slate-700 transition-all hover:bg-white flex items-center justify-between">
+              <div>
+                <span class="font-tech text-sm font-semibold block text-obsidian">02. 3D Interposer & HBM3e Mesh</span>
+                <span class="font-mono text-[11px] text-slate-500 block">High-density silicon via routing mesh</span>
+              </div>
+              <span class="font-mono text-xs text-slate-500">4.8 TB/s</span>
+            </button>
+
+            <!-- Tab 3 -->
+            <button onclick="switchDieLayer(2)" id="tab-2" class="w-full text-left p-4 rounded-lg border border-slate-200 bg-white/60 text-slate-700 transition-all hover:bg-white flex items-center justify-between">
+              <div>
+                <span class="font-tech text-sm font-semibold block text-obsidian">03. Silicon Photonic Transceiver</span>
+                <span class="font-mono text-[11px] text-slate-500 block">Direct optical transmitter waveguide coupling</span>
+              </div>
+              <span class="font-mono text-xs text-slate-500">3.2 Tbps Opt</span>
+            </button>
+
+            <!-- Tab 4 -->
+            <button onclick="switchDieLayer(3)" id="tab-3" class="w-full text-left p-4 rounded-lg border border-slate-200 bg-white/60 text-slate-700 transition-all hover:bg-white flex items-center justify-between">
+              <div>
+                <span class="font-tech text-sm font-semibold block text-obsidian">04. Liquid-Metal Thermal Interface</span>
+                <span class="font-mono text-[11px] text-slate-500 block">Gallium-indium eutectic bare-die TIM layer</span>
+              </div>
+              <span class="font-mono text-xs text-slate-500">0.03 &deg;C/W</span>
+            </button>
+          </div>
+
+          <!-- Dynamic Layer Details Card -->
+          <div id="layer-details-card" class="p-5 rounded-lg border border-slate-200 bg-white shadow-xs">
+            <h4 id="layer-title" class="font-tech text-base font-semibold text-obsidian">Aurora Tensor Engine Micro-Floorplan</h4>
+            <p id="layer-desc" class="text-xs text-slate-600 font-sans mt-2 leading-relaxed">
+              Consists of 256 independent systolic processing arrays optimized for transformer attention mechanisms and sparse matrix dot-products with dynamic sparsity gating.
+            </p>
+            
+            <div class="mt-4 pt-4 border-t border-slate-100 grid grid-cols-3 gap-2 font-mono text-[11px]">
+              <div>
+                <span class="text-slate-400 block text-[9px] uppercase">Clock</span>
+                <span id="spec-clock" class="font-semibold text-obsidian">2.45 GHz</span>
+              </div>
+              <div>
+                <span class="text-slate-400 block text-[9px] uppercase">TDP</span>
+                <span id="spec-tdp" class="font-semibold text-obsidian">280 W</span>
+              </div>
+              <div>
+                <span class="text-slate-400 block text-[9px] uppercase">Die Size</span>
+                <span id="spec-die" class="font-semibold text-obsidian">780 mm&sup2;</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 5. MOTHERBOARD & PLATFORM ANATOMY (Section 3) -->
+  <!-- ========================================================================= -->
+  <section id="platform" class="py-32 px-6 md:px-14 max-w-7xl mx-auto border-t border-slate-200">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Left Column: Platform Imagery & Heatsink Architecture -->
+      <div class="lg:col-span-7">
+        <div class="rounded-xl overflow-hidden border border-slate-200 bg-white shadow-xs relative">
+          <img src="/valence/assets/board_stack.jpg" alt="Modular AI Accelerator Server Platform" class="w-full h-auto object-cover" />
+          <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded border border-slate-200 font-mono text-[11px] text-obsidian">
+            TITANIUM SERIES MBX // HIGH-BANDWIDTH FABRIC
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Engineering Breakdown -->
+      <div class="lg:col-span-5 space-y-8">
+        <div>
+          <span class="font-mono text-xs uppercase tracking-[0.25em] text-siliconGold block mb-2">03 // Platform Topology</span>
+          <h2 class="font-tech text-3xl sm:text-4xl font-light text-obsidian leading-tight">
+            Modular AI Accelerator Motherboard.
+          </h2>
+          <p class="mt-4 text-sm text-slate-600 leading-relaxed font-sans">
+            Engineered for hyperscale datacenter deployments. The Titanium MBX platform features hot-swappable accelerator sockets, CXL 3.1 memory pooling, and ultra-flat vapor-chamber thermal dissipation.
+          </p>
+        </div>
+
+        <div class="space-y-5">
+          <div class="p-5 rounded-lg border border-slate-200 bg-white">
+            <span class="font-mono text-xs font-semibold text-obsidian block mb-1">Dual-Tier Vapor Chamber Cooling</span>
+            <p class="text-xs text-slate-500 font-sans leading-relaxed">Direct-contact sintered copper micro-heatpipes coupled with precision milled aluminum cooling fins capable of dissipating up to 600W sustained thermal load.</p>
+          </div>
+
+          <div class="p-5 rounded-lg border border-slate-200 bg-white">
+            <span class="font-mono text-xs font-semibold text-obsidian block mb-1">LGA-4896 Gold Socket Matrix</span>
+            <p class="text-xs text-slate-500 font-sans leading-relaxed">4,896 beryllium-copper contacts with 30µ-inch gold plating, providing redundant power ground planes and 128 differential high-speed PCIe 6.0 lanes.</p>
+          </div>
+
+          <div class="p-5 rounded-lg border border-slate-200 bg-white">
+            <span class="font-mono text-xs font-semibold text-obsidian block mb-1">CXL 3.1 Disaggregated Memory Fabric</span>
+            <p class="text-xs text-slate-500 font-sans leading-relaxed">Native hardware coherence allowing up to 16 accelerator boards to share a unified 2 Terabyte memory pool over low-latency optical links.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 6. COMPREHENSIVE TECHNICAL SPECIFICATIONS MATRIX (Section 4) -->
+  <!-- ========================================================================= -->
+  <section id="specifications" class="py-32 px-6 md:px-14 bg-white border-t border-slate-200">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="mb-14">
+        <span class="font-mono text-xs uppercase tracking-[0.25em] text-siliconGold block mb-2">04 // Verification & Parameters</span>
+        <h2 class="font-tech text-3xl sm:text-5xl font-light text-obsidian leading-tight">
+          Engineering Specifications Matrix.
+        </h2>
+        <p class="mt-4 text-sm text-slate-600 font-sans max-w-xl">
+          Complete electrical, thermal, and mechanical parameters for the Aurora X1 silicon die and Titanium ceramic carrier boards.
+        </p>
+      </div>
+
+      <!-- Responsive Data Table -->
+      <div class="overflow-x-auto rounded-xl border border-slate-200 bg-alabaster shadow-xs">
+        <table class="w-full text-left font-sans text-xs border-collapse min-w-[700px]">
+          <thead>
+            <tr class="border-b border-slate-200 bg-white font-mono text-[11px] uppercase tracking-wider text-slate-500">
+              <th class="py-4 px-6 font-medium">Domain / Parameter</th>
+              <th class="py-4 px-6 font-medium">Aurora X1 Monolithic Die</th>
+              <th class="py-4 px-6 font-medium">Titanium MBX Motherboard</th>
+              <th class="py-4 px-6 font-medium">Test Conditions & Compliance</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200 text-slate-700">
+            <tr class="hover:bg-white transition-colors">
+              <td class="py-4 px-6 font-mono font-medium text-obsidian">Process Node / Substrate</td>
+              <td class="py-4 px-6">3nm FinFET / High-k Metal Gate</td>
+              <td class="py-4 px-6">28-Layer Al2O3-Zr Ceramic HDI</td>
+              <td class="py-4 px-6 font-mono text-slate-500">Class 10 Cleanroom fab</td>
+            </tr>
+            <tr class="hover:bg-white transition-colors">
+              <td class="py-4 px-6 font-mono font-medium text-obsidian">Compute Throughput</td>
+              <td class="py-4 px-6">1,024 TFLOPS (FP8 Sparse)</td>
+              <td class="py-4 px-6">Up to 8x Sockets (8,192 TFLOPS)</td>
+              <td class="py-4 px-6 font-mono text-slate-500">Dense GEMM @ 2.45 GHz</td>
+            </tr>
+            <tr class="hover:bg-white transition-colors">
+              <td class="py-4 px-6 font-mono font-medium text-obsidian">Interconnect Bandwidth</td>
+              <td class="py-4 px-6">1.8 TB/s Die-to-Die Fabric</td>
+              <td class="py-4 px-6">3.2 Tbps Silicon Photonics C-Band</td>
+              <td class="py-4 px-6 font-mono text-slate-500">112 Gbps PAM4 / BER &lt; 10⁻¹⁸</td>
+            </tr>
+            <tr class="hover:bg-white transition-colors">
+              <td class="py-4 px-6 font-mono font-medium text-obsidian">Memory Subsystem</td>
+              <td class="py-4 px-6">96 GB HBM3e Co-Packaged</td>
+              <td class="py-4 px-6">512 GB DDR5-6400 ECC Registered</td>
+              <td class="py-4 px-6 font-mono text-slate-500">4.8 TB/s Peak HBM Throughput</td>
+            </tr>
+            <tr class="hover:bg-white transition-colors">
+              <td class="py-4 px-6 font-mono font-medium text-obsidian">Power Delivery & Envelope</td>
+              <td class="py-4 px-6">350W TDP Nominal (0.75V - 1.1V)</td>
+              <td class="py-4 px-6">48V to 12V Direct Bus / 400A VRM</td>
+              <td class="py-4 px-6 font-mono text-slate-500">Sub-nanosecond dI/dt response</td>
+            </tr>
+            <tr class="hover:bg-white transition-colors">
+              <td class="py-4 px-6 font-mono font-medium text-obsidian">Thermal Resistance (&theta;jc)</td>
+              <td class="py-4 px-6">0.03 &deg;C/W (Gallium-Indium TIM)</td>
+              <td class="py-4 px-6">Vapor Chamber + Micro-Finned Sink</td>
+              <td class="py-4 px-6 font-mono text-slate-500">Liquid loop delta &lt; 15&deg;C</td>
+            </tr>
+            <tr class="hover:bg-white transition-colors">
+              <td class="py-4 px-6 font-mono font-medium text-obsidian">Form Factor & Mounting</td>
+              <td class="py-4 px-6">32.5 &times; 24.0 mm Bare Die Interposer</td>
+              <td class="py-4 px-6">Standard Open Compute Project (OCP 3.0)</td>
+              <td class="py-4 px-6 font-mono text-slate-500">EIA-310 1U/2U Rack Mount</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 7. INTERACTIVE TAPEOUT & ENGINEERING INQUIRY (Section 5) -->
+  <!-- ========================================================================= -->
+  <section id="tapeout" class="py-32 px-6 md:px-14 max-w-7xl mx-auto border-t border-slate-200">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      
+      <!-- Left Column: Tapeout Info -->
+      <div class="lg:col-span-5">
+        <span class="font-mono text-xs uppercase tracking-[0.25em] text-siliconGold block mb-2">05 // Tapeout & Sampling</span>
+        <h2 class="font-tech text-3xl sm:text-5xl font-light text-obsidian leading-tight">
+          Request Silicon Samples & Custom Substrate Runs.
+        </h2>
+        <p class="mt-6 text-sm text-slate-600 font-sans leading-relaxed">
+          Valence provides direct engineering access for custom ASIC interposer layout, multi-project wafer (MPW) shuttle slots, and reference evaluation boards.
+        </p>
+
+        <div class="mt-8 space-y-4 font-mono text-xs text-slate-600">
+          <div class="flex items-center gap-3">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span>Q3 Tapeout Shuttle: <strong>Open for Design Submissions</strong></span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="w-2 h-2 rounded-full bg-siliconGold"></span>
+            <span>Lead Time: <strong>14 Weeks from GDSII Sign-off</strong></span>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="w-2 h-2 rounded-full bg-obsidian"></span>
+            <span>AS9100D & ISO 9001:2015 Certified Cleanrooms</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Tapeout Configurator Form -->
+      <div class="lg:col-span-7 p-8 md:p-10 rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <form id="tapeout-form" onsubmit="handleTapeoutSubmit(event)" class="space-y-6">
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block font-mono text-xs text-slate-700 uppercase tracking-wider mb-2">Full Name</label>
+              <input type="text" required placeholder="Dr. Elena Vance" class="w-full px-4 py-3 rounded-lg border border-slate-200 bg-alabaster text-sm text-obsidian focus:outline-none focus:border-obsidian focus:bg-white transition-all font-sans" />
+            </div>
+            <div>
+              <label class="block font-mono text-xs text-slate-700 uppercase tracking-wider mb-2">Enterprise / Lab Email</label>
+              <input type="email" required placeholder="e.vance@supercomputing.org" class="w-full px-4 py-3 rounded-lg border border-slate-200 bg-alabaster text-sm text-obsidian focus:outline-none focus:border-obsidian focus:bg-white transition-all font-sans" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block font-mono text-xs text-slate-700 uppercase tracking-wider mb-2">Target Architecture</label>
+              <select class="w-full px-4 py-3 rounded-lg border border-slate-200 bg-alabaster text-sm text-obsidian focus:outline-none focus:border-obsidian focus:bg-white transition-all font-sans">
+                <option>Aurora X1 Silicon Die (Bare Interposer)</option>
+                <option>Titanium MBX Modular Evaluation Platform</option>
+                <option>Custom 28-Layer Ceramic Substrate Fabrication</option>
+                <option>Silicon Photonic Optical Carrier Board</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-mono text-xs text-slate-700 uppercase tracking-wider mb-2">Sample Quantity</label>
+              <select class="w-full px-4 py-3 rounded-lg border border-slate-200 bg-alabaster text-sm text-obsidian focus:outline-none focus:border-obsidian focus:bg-white transition-all font-sans">
+                <option>Evaluation Kit (1-2 Units)</option>
+                <option>Pre-Production Wafer Run (5-25 Wafers)</option>
+                <option>Full Production Batch (> 10,000 Units)</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-mono text-xs text-slate-700 uppercase tracking-wider mb-2">Engineering Requirements & Thermal Specs</label>
+            <textarea rows="4" placeholder="Detail your process node requirements, GDSII readiness, target thermal envelope, and optical waveguide interconnect expectations..." class="w-full px-4 py-3 rounded-lg border border-slate-200 bg-alabaster text-sm text-obsidian focus:outline-none focus:border-obsidian focus:bg-white transition-all font-sans"></textarea>
+          </div>
+
+          <button type="submit" id="submit-btn" class="w-full py-4 rounded-lg bg-obsidian text-white font-mono text-xs uppercase tracking-widest hover:bg-siliconGold hover:text-obsidian transition-colors font-medium shadow-sm">
+            Submit Tapeout Consultation Request &rarr;
+          </button>
+
+          <div id="submit-success" class="hidden p-4 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-mono text-center">
+            ✓ Tapeout inquiry submitted to Valence Microsystems Fab Lab. An application engineer will contact your team within 24 hours.
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 8. MINIMALIST EDITORIAL FOOTER -->
+  <!-- ========================================================================= -->
+  <footer class="py-16 px-6 md:px-14 bg-white border-t border-slate-200">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+      
+      <div>
+        <div class="flex items-center gap-3">
+          <div class="w-5 h-5 rounded-xs border border-slate-300 bg-white flex items-center justify-center">
+            <div class="w-2 h-2 bg-obsidian"></div>
+          </div>
+          <span class="font-tech text-sm tracking-[0.2em] font-bold text-obsidian uppercase">VALENCE MICROSYSTEMS</span>
+        </div>
+        <p class="mt-2 text-xs text-slate-500 font-sans">
+          Advanced Ceramic Substrates & Custom Silicon Accelerators for Exascale Computing.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-8 font-mono text-xs text-slate-500">
+        <a href="#substrate" class="hover:text-obsidian transition-colors">Substrates</a>
+        <a href="#die-matrix" class="hover:text-obsidian transition-colors">Silicon Die</a>
+        <a href="#platform" class="hover:text-obsidian transition-colors">Platforms</a>
+        <a href="#specifications" class="hover:text-obsidian transition-colors">Datasheets</a>
+        <span class="text-slate-300">|</span>
+        <span class="text-slate-400">ITAR & EAR Compliant</span>
+      </div>
+
+    </div>
+    
+    <div class="max-w-7xl mx-auto mt-10 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-slate-400 gap-4">
+      <div>&copy; 2026 Valence Microsystems Inc. All rights reserved.</div>
+      <div>Designed with Antigravity Oneshot Hero Scaffold & Omni Engine.</div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- 9. VIDEO SCRUBBING ENGINE & PROGRESS-LOCKED JAVASCRIPT -->
+  <!-- ========================================================================= -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const heroVideo = document.getElementById('hero-video');
+      const heroSection = document.getElementById('hero-section');
+      const nav = document.getElementById('site-nav');
+      const phase0 = document.getElementById('phase-0');
+      const phase1 = document.getElementById('phase-1');
+      const phase2 = document.getElementById('phase-2');
+      const scrollHint = document.getElementById('scroll-hint');
+
+      // 1. In-Memory Blob Preloader with fallback
+      fetch('/valence/assets/hero.mp4')
+        .then(res => {
+          if (!res.ok) throw new Error('Video network response was not ok');
+          return res.blob();
+        })
+        .then(blob => {
+          heroVideo.src = URL.createObjectURL(blob);
+          heroVideo.load();
+        })
+        .catch(() => {
+          heroVideo.src = '/valence/assets/hero.mp4';
+          heroVideo.load();
+        });
+
+      // 2. Normalized Scroll Progress (0.0 -> 1.0 across the 400vh container)
+      let targetProgress = 0;
+      let currentProgress = 0;
+
+      function updateScroll() {
+        const rect = heroSection.getBoundingClientRect();
+        const maxScroll = rect.height - window.innerHeight;
+        
+        if (maxScroll > 0) {
+          targetProgress = Math.max(0, Math.min(1, -rect.top / maxScroll));
+        }
+
+        // Header style update on scroll
+        if (window.scrollY > 60) {
+          nav.classList.add('nav-scrolled');
+        } else {
+          nav.classList.remove('nav-scrolled');
+        }
+
+        // Hide scroll hint once user initiates scroll
+        if (window.scrollY > 100 && scrollHint) {
+          scrollHint.style.opacity = '0';
+        } else if (scrollHint) {
+          scrollHint.style.opacity = '1';
+        }
+      }
+
+      window.addEventListener('scroll', updateScroll, { passive: true });
+      window.addEventListener('resize', updateScroll);
+      updateScroll();
+
+      // 3. Mathematical Progress-Locked Opacity Calculator
+      function calcOpacity(progress, enterStart, enterEnd, exitStart, exitEnd) {
+        if (progress < enterStart || progress > exitEnd) return 0;
+        if (progress < enterEnd) return (progress - enterStart) / (enterEnd - enterStart);
+        if (progress > exitStart) return Math.max(0, 1 - (progress - exitStart) / (exitEnd - exitStart));
+        return 1.0;
+      }
+
+      // 4. Smooth Scrub Loop
+      function scrubLoop() {
+        currentProgress += (targetProgress - currentProgress) * 0.15;
+
+        // Seek Video
+        if (heroVideo.duration && !heroVideo.seeking) {
+          const targetTime = currentProgress * heroVideo.duration;
+          if (Math.abs(heroVideo.currentTime - targetTime) > 0.015) {
+            heroVideo.currentTime = targetTime;
+          }
+        }
+
+        // Lock Typography directly to exact scroll progress points
+        const op0 = calcOpacity(targetProgress, 0.0, 0.04, 0.22, 0.30);
+        const op1 = calcOpacity(targetProgress, 0.32, 0.42, 0.58, 0.68);
+        const op2 = calcOpacity(targetProgress, 0.68, 0.78, 0.92, 0.99);
+
+        if (phase0) {
+          phase0.style.opacity = op0.toFixed(3);
+          phase0.style.transform = `translateY(${-targetProgress * 45}px)`;
+        }
+        if (phase1) {
+          phase1.style.opacity = op1.toFixed(3);
+          phase1.style.transform = `translateY(${(0.48 - targetProgress) * 35}px)`;
+        }
+        if (phase2) {
+          phase2.style.opacity = op2.toFixed(3);
+          phase2.style.transform = `translateY(${(0.82 - targetProgress) * 35}px)`;
+        }
+
+        requestAnimationFrame(scrubLoop);
+      }
+      requestAnimationFrame(scrubLoop);
+    });
+
+    // =========================================================================
+    // 10. INTERACTIVE DIE LAYER CONTROLLER
+    // =========================================================================
+    const layerData = [
+      {
+        tag: "LAYER 01: NEURAL TENSOR ARRAY",
+        title: "Aurora Tensor Engine Micro-Floorplan",
+        desc: "Consists of 256 independent systolic processing arrays optimized for transformer attention mechanisms and sparse matrix dot-products with dynamic sparsity gating.",
+        clock: "2.45 GHz",
+        tdp: "280 W",
+        die: "780 mm²"
+      },
+      {
+        tag: "LAYER 02: 3D INTERPOSER & HBM3e MESH",
+        title: "High-Density Silicon Micro-Via Grid",
+        desc: "Direct 2.5D copper micro-bump interconnect fabric connecting four 24GB HBM3e memory stacks at 4.8 TB/s aggregate bandwidth with sub-10ns access latency.",
+        clock: "6.4 Gbps",
+        tdp: "45 W",
+        die: "1,200 mm² Interposer"
+      },
+      {
+        tag: "LAYER 03: SILICON PHOTONICS INTERCONNECT",
+        title: "Integrated Optical Waveguide Transceivers",
+        desc: "Co-packaged InP laser diodes and silicon micro-ring modulators delivering 3.2 Tbps bi-directional optical throughput directly off the die package.",
+        clock: "112 GHz PAM4",
+        tdp: "18 W",
+        die: "8-Channel C-Band"
+      },
+      {
+        tag: "LAYER 04: LIQUID-METAL THERMAL INTERFACE",
+        title: "Gallium-Indium Eutectic Conductive Matrix",
+        desc: "Micro-machined surface with liquid-metal thermal interface material eliminating interfacial thermal resistance for extreme 600W sustained multi-socket operation.",
+        clock: "Isothermal",
+        tdp: "600 W Max",
+        die: "0.03 °C/W θjc"
+      }
+    ];
+
+    function switchDieLayer(index) {
+      for (let i = 0; i < 4; i++) {
+        const tab = document.getElementById(`tab-${i}`);
+        if (i === index) {
+          tab.className = "w-full text-left p-4 rounded-lg border border-slate-200 transition-all tab-active flex items-center justify-between";
+        } else {
+          tab.className = "w-full text-left p-4 rounded-lg border border-slate-200 bg-white/60 text-slate-700 transition-all hover:bg-white flex items-center justify-between";
+        }
+      }
+
+      const data = layerData[index];
+      document.getElementById('active-layer-tag').innerText = data.tag;
+      document.getElementById('layer-title').innerText = data.title;
+      document.getElementById('layer-desc').innerText = data.desc;
+      document.getElementById('spec-clock').innerText = data.clock;
+      document.getElementById('spec-tdp').innerText = data.tdp;
+      document.getElementById('spec-die').innerText = data.die;
+    }
+
+    function handleTapeoutSubmit(e) {
+      e.preventDefault();
+      document.getElementById('submit-btn').classList.add('hidden');
+      document.getElementById('submit-success').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
