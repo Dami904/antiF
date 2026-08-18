@@ -149,7 +149,7 @@
           Explore The 4 Flagships &darr;
         </a>
         <button onclick="toggleAudio()" class="px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 backdrop-blur-md text-slate-200 hover:text-white transition-all flex items-center gap-2">
-          <span>🔊 Enable Spatial Ambient Soundscape</span>
+          <span>🔊 Play Soundtrack // Magnific Parguito</span>
         </button>
       </div>
 
@@ -522,80 +522,99 @@
   </footer>
 
   <!-- ========================================================================= -->
-  <!-- 7. PROCEDURAL SPATIAL AMBIENT SOUND ENGINE (Web Audio API) -->
+  <!-- 7. REAL-TIME AUDIO ENGINE (magnific-parguito.mp3) -->
   <!-- ========================================================================= -->
+  <audio id="bg-audio" src="/assets/magnific-parguito.mp3" loop preload="auto"></audio>
+
   <script>
-    let audioCtx = null;
+    const bgAudio = document.getElementById('bg-audio');
+    const eqBars = document.getElementById('eq-bars');
+    const audioLabel = document.getElementById('audio-label');
     let isAudioPlaying = false;
-    let masterGain = null;
-    let osc1 = null;
-    let osc2 = null;
-    let filter = null;
+    let audioCtx = null;
+    let analyser = null;
+    let sourceNode = null;
+    let dataArray = null;
 
-    function initAudio() {
+    function initAudioEngine() {
       if (audioCtx) return;
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      audioCtx = new AudioContext();
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 64;
+        sourceNode = audioCtx.createMediaElementSource(bgAudio);
+        sourceNode.connect(analyser);
+        analyser.connect(audioCtx.destination);
+        dataArray = new Uint8Array(analyser.frequencyBinCount);
+        renderVisualizer();
+      } catch (e) {
+        console.warn('Web Audio API not supported or direct stream:', e);
+      }
+    }
 
-      masterGain = audioCtx.createGain();
-      masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
-      masterGain.connect(audioCtx.destination);
+    function renderVisualizer() {
+      if (!isAudioPlaying) return;
+      requestAnimationFrame(renderVisualizer);
 
-      // Low-pass filter for warm, deep ambient spatial drone
-      filter = audioCtx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(320, audioCtx.currentTime);
-      filter.Q.setValueAtTime(3.5, audioCtx.currentTime);
-      filter.connect(masterGain);
-
-      // Sub-drone Oscillator 1 (55Hz / A1)
-      osc1 = audioCtx.createOscillator();
-      osc1.type = 'sawtooth';
-      osc1.frequency.setValueAtTime(55, audioCtx.currentTime);
-      osc1.connect(filter);
-      osc1.start();
-
-      // Atmospheric Sine Oscillator 2 (110Hz / A2 with slight detune)
-      osc2 = audioCtx.createOscillator();
-      osc2.type = 'sine';
-      osc2.frequency.setValueAtTime(110.5, audioCtx.currentTime);
-      osc2.connect(filter);
-      osc2.start();
-
-      // Slow ambient LFO filter modulation
-      const lfo = audioCtx.createOscillator();
-      const lfoGain = audioCtx.createGain();
-      lfo.frequency.value = 0.15; // 0.15 Hz breathing cycle
-      lfoGain.gain.value = 140;
-      lfo.connect(lfoGain);
-      lfoGain.connect(filter.frequency);
-      lfo.start();
+      if (analyser && dataArray) {
+        analyser.getByteFrequencyData(dataArray);
+        const bars = eqBars.querySelectorAll('.eq-bar');
+        if (bars.length >= 4) {
+          bars[0].style.height = Math.max(3, (dataArray[2] / 255) * 18) + 'px';
+          bars[1].style.height = Math.max(4, (dataArray[5] / 255) * 22) + 'px';
+          bars[2].style.height = Math.max(3, (dataArray[9] / 255) * 16) + 'px';
+          bars[3].style.height = Math.max(4, (dataArray[14] / 255) * 20) + 'px';
+        }
+      }
     }
 
     function toggleAudio() {
-      initAudio();
+      initAudioEngine();
 
-      if (audioCtx.state === 'suspended') {
+      if (audioCtx && audioCtx.state === 'suspended') {
         audioCtx.resume();
       }
 
-      const eqBars = document.getElementById('eq-bars');
-      const audioLabel = document.getElementById('audio-label');
-
       if (!isAudioPlaying) {
-        // Fade in
-        masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
-        masterGain.gain.linearRampToValueAtTime(0.18, audioCtx.currentTime + 1.5);
-        isAudioPlaying = true;
-        eqBars.classList.add('playing');
-        audioLabel.innerText = 'SOUND: ACTIVE';
+        bgAudio.volume = 0;
+        bgAudio.play().then(() => {
+          isAudioPlaying = true;
+          eqBars.classList.add('playing');
+          audioLabel.innerText = 'SOUND: ACTIVE';
+          
+          // Smooth volume fade-in
+          let vol = 0;
+          const fadeInterval = setInterval(() => {
+            if (vol < 0.75) {
+              vol += 0.05;
+              bgAudio.volume = Math.min(0.75, vol);
+            } else {
+              clearInterval(fadeInterval);
+            }
+          }, 50);
+
+          renderVisualizer();
+        }).catch(err => {
+          console.warn('Playback blocked or pending interaction:', err);
+        });
       } else {
-        // Fade out
-        masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
-        masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.8);
-        isAudioPlaying = false;
-        eqBars.classList.remove('playing');
-        audioLabel.innerText = 'SOUND: OFF';
+        // Smooth volume fade-out
+        let vol = bgAudio.volume;
+        const fadeInterval = setInterval(() => {
+          if (vol > 0.05) {
+            vol -= 0.08;
+            bgAudio.volume = Math.max(0, vol);
+          } else {
+            bgAudio.pause();
+            isAudioPlaying = false;
+            eqBars.classList.remove('playing');
+            audioLabel.innerText = 'SOUND: OFF';
+            clearInterval(fadeInterval);
+            const bars = eqBars.querySelectorAll('.eq-bar');
+            bars.forEach((b, i) => b.style.height = (i % 2 === 0 ? '4px' : '8px'));
+          }
+        }, 40);
       }
     }
   </script>
