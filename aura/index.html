@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth bg-[#080a0f] text-slate-100">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AURA PLANAR-1 — Cyber-Acoustic Audiophile Headphones</title>
+  <meta name="description" content="Aura Planar-1 flagship open-back planar magnetic headphones engineered with 0.5µm gold-etched diaphragms and aerospace beryllium architecture." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            auraDark: '#080a0f',
+            auraSurface: '#10131d',
+            auraBorder: 'rgba(255, 255, 255, 0.08)',
+            accentGold: '#d4a359',
+            accentCyan: '#38bdf8',
+            accentViolet: '#a78bfa',
+            textMuted: '#8a94a6'
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"Space Mono"', 'monospace'],
+            serif: ['"Playfair Display"', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Plus Jakarta Sans, Space Mono & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #080a0f; }
+    ::-webkit-scrollbar-thumb { background: #1e2433; border-radius: 3px; }
+
+    /* Canvas Frequency Glow */
+    .freq-glow {
+      box-shadow: inset 0 0 30px rgba(56, 189, 248, 0.08);
+    }
+  </style>
+</head>
+
+<body class="selection:bg-accentGold selection:text-black font-sans antialiased overflow-x-hidden">
+
+  <!-- ========================================================================= -->
+  <!-- 1. TOP NAVIGATION -->
+  <!-- ========================================================================= -->
+  <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-auraDark/80 border-b border-white/5 px-6 md:px-12 py-4 flex items-center justify-between transition-all">
+    <!-- Brand -->
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-accentGold to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20">
+        <span class="font-mono font-bold text-xs text-black">A1</span>
+      </div>
+      <div>
+        <span class="font-bold tracking-widest text-sm text-white uppercase block">AURA PLANAR-1</span>
+        <span class="font-mono text-[9px] tracking-widest text-accentGold uppercase">0.5µm GOLD-ETCHED TRANSDUCER</span>
+      </div>
+    </div>
+
+    <!-- Center Nav Links -->
+    <nav class="hidden md:flex items-center gap-6 font-mono text-xs text-textMuted">
+      <a href="#transducer" class="hover:text-white transition-colors">TRANSDUCER</a>
+      <a href="#frequency" class="hover:text-white transition-colors">FREQUENCY RESPONSE</a>
+      <a href="#metrology" class="hover:text-white transition-colors">METROLOGY</a>
+      <a href="#configurator" class="hover:text-white transition-colors">STUDIO TUNING</a>
+    </nav>
+
+    <!-- Cross-Project Switchers & Order Action -->
+    <div class="flex items-center gap-3 font-mono text-xs">
+      <a href="/" class="hidden sm:inline-flex items-center gap-1 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 text-textMuted hover:text-white transition-colors">
+        &larr; <span>Collection Hub</span>
+      </a>
+      <a href="#configurator" class="px-5 py-2 rounded-full bg-accentGold hover:bg-amber-400 text-black font-bold tracking-wider transition-all shadow-md shadow-amber-500/20 uppercase">
+        Order $1,890
+      </a>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- 2. SCROLL-DRIVEN 400VH EXPLODED TRANSDUCER HERO SECTION -->
+  <!-- ========================================================================= -->
+  <section id="hero-scroll" class="relative h-[400vh] bg-auraDark">
+    
+    <!-- Pinned Sticky 100vh Viewport -->
+    <div class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+      
+      <!-- Video Element with in-memory blob scrubber -->
+      <video id="hero-video" class="w-full h-full object-contain pointer-events-none filter drop-shadow-2xl" muted playsinline preload="auto"></video>
+      
+      <!-- Vignette Gradient Overlays -->
+      <div class="absolute inset-0 bg-gradient-to-t from-auraDark via-transparent to-auraDark/80 pointer-events-none"></div>
+
+      <!-- Live Telemetry HUD Overlay -->
+      <div class="absolute bottom-8 left-6 md:left-12 right-6 md:right-12 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 pointer-events-none">
+        
+        <!-- Exploded Stage Indicator -->
+        <div class="space-y-1">
+          <span class="font-mono text-[10px] uppercase tracking-widest text-accentGold block">EXPLODED TRANSDUCER ARCHITECTURE</span>
+          <h2 id="stage-title" class="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            Layer 01 // Open-Back Aerodynamic Grille
+          </h2>
+          <p id="stage-desc" class="text-xs text-slate-400 max-w-md font-light">
+            CNC-machined aerospace grade beryllium housing eliminating back-wave acoustic pressure.
+          </p>
+        </div>
+
+        <!-- Metric Readout -->
+        <div class="flex items-center gap-6 font-mono text-xs bg-black/60 backdrop-blur-md px-5 py-3 rounded-xl border border-white/10">
+          <div>
+            <span class="text-textMuted text-[9px] block">FREQUENCY RANGE</span>
+            <span class="text-accentCyan font-bold">5 Hz – 55,000 Hz</span>
+          </div>
+          <div class="h-6 w-[1px] bg-white/10"></div>
+          <div>
+            <span class="text-textMuted text-[9px] block">IMPEDANCE</span>
+            <span class="text-accentGold font-bold">32 Ω @ 1 kHz</span>
+          </div>
+          <div class="h-6 w-[1px] bg-white/10"></div>
+          <div>
+            <span class="text-textMuted text-[9px] block">THD DISTORTION</span>
+            <span class="text-emerald-400 font-bold">&lt; 0.05%</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Scroll Down Hint Indicator -->
+      <div id="scroll-hint" class="absolute bottom-24 flex flex-col items-center gap-2 font-mono text-[10px] text-textMuted tracking-widest uppercase animate-bounce pointer-events-none">
+        <span>SCROLL TO EXPLODE TRANSDUCER</span>
+        <svg class="w-4 h-4 text-accentGold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 3. INTERACTIVE FREQUENCY RESPONSE & SOUND SIMULATOR -->
+  <!-- ========================================================================= -->
+  <section id="frequency" class="py-28 px-6 md:px-12 max-w-7xl mx-auto space-y-12">
+    
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-8">
+      <div>
+        <span class="font-mono text-xs uppercase tracking-[0.25em] text-accentCyan block mb-2">ACOUSTIC MEASUREMENT & SIMULATION</span>
+        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+          Real-Time Frequency Response Target
+        </h2>
+      </div>
+      <div class="flex flex-wrap items-center gap-2 font-mono text-xs">
+        <button onclick="setCurve('harman')" id="btn-harman" class="px-4 py-2 rounded-lg bg-accentGold text-black font-bold transition-all">Harman Target 2026</button>
+        <button onclick="setCurve('flat')" id="btn-flat" class="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 transition-all">Aura Reference Flat</button>
+        <button onclick="setCurve('bass')" id="btn-bass" class="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 transition-all">Sub-Bass Extended</button>
+      </div>
+    </div>
+
+    <!-- Frequency Curve Canvas Container -->
+    <div class="relative rounded-2xl bg-auraSurface border border-auraBorder p-6 md:p-8 freq-glow space-y-6">
+      
+      <div class="flex items-center justify-between text-xs font-mono text-textMuted border-b border-white/5 pb-4">
+        <span>BASS (20-250 Hz)</span>
+        <span>MIDRANGE (250-4,000 Hz)</span>
+        <span>TREBLE & AIR (4k-40,000 Hz)</span>
+      </div>
+
+      <!-- Canvas -->
+      <canvas id="freq-canvas" width="1200" height="340" class="w-full h-64 md:h-80 block"></canvas>
+
+      <!-- Audio Tone Test Generator -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-white/5 font-mono text-xs">
+        <button onclick="playTestTone(30)" class="p-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-between text-slate-300 hover:text-accentCyan transition-all">
+          <span>30 Hz Sub-Bass</span>
+          <span>▶</span>
+        </button>
+        <button onclick="playTestTone(1000)" class="p-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-between text-slate-300 hover:text-accentGold transition-all">
+          <span>1,000 Hz Vocal</span>
+          <span>▶</span>
+        </button>
+        <button onclick="playTestTone(8000)" class="p-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-between text-slate-300 hover:text-accentViolet transition-all">
+          <span>8,000 Hz Treble</span>
+          <span>▶</span>
+        </button>
+        <button onclick="playTestTone(16000)" class="p-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-between text-slate-300 hover:text-emerald-400 transition-all">
+          <span>16,000 Hz Air</span>
+          <span>▶</span>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 4. TRANSDUCER METROLOGY & HARDWARE BREAKDOWN -->
+  <!-- ========================================================================= -->
+  <section id="transducer" class="py-28 px-6 md:px-12 bg-auraSurface/40 border-t border-b border-white/5">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Video Visualizer -->
+      <div class="lg:col-span-7 relative rounded-2xl overflow-hidden aspect-video border border-auraBorder bg-black shadow-2xl">
+        <video class="w-full h-full object-cover" autoplay muted loop playsinline src="/aura/assets/showcase.mp4"></video>
+        <div class="absolute bottom-4 left-4 font-mono text-[10px] uppercase bg-black/70 backdrop-blur-md px-3 py-1.5 rounded border border-white/10 text-white flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-accentGold animate-pulse"></span>
+          <span>0.5µm Diaphragm Oscillography // 120dB SPL</span>
+        </div>
+      </div>
+
+      <!-- Engineering Details -->
+      <div class="lg:col-span-5 space-y-6">
+        <span class="font-mono text-xs uppercase tracking-[0.25em] text-accentGold block">02 // TRANSDUCER METROLOGY</span>
+        <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white leading-tight">
+          Symmetric Double-Sided Neodymium Push-Pull Array.
+        </h2>
+        <p class="text-slate-400 text-sm font-light leading-relaxed">
+          Unlike conventional dynamic cone drivers that suffer from non-linear cone break-up, the Aura planar magnetic motor drives the entire $88\,\text{mm}$ diaphragm surface simultaneously with zero phase distortion.
+        </p>
+
+        <div class="space-y-4 pt-2 font-mono text-xs">
+          <div class="p-4 rounded-xl bg-auraSurface border border-auraBorder flex items-center justify-between">
+            <span class="text-textMuted uppercase">Diaphragm Thickness</span>
+            <span class="text-accentGold font-bold">0.5 Micron Ultra-Thin</span>
+          </div>
+          <div class="p-4 rounded-xl bg-auraSurface border border-auraBorder flex items-center justify-between">
+            <span class="text-textMuted uppercase">Magnetic Flux Density</span>
+            <span class="text-accentCyan font-bold">1.85 Tesla Push-Pull</span>
+          </div>
+          <div class="p-4 rounded-xl bg-auraSurface border border-auraBorder flex items-center justify-between">
+            <span class="text-textMuted uppercase">Conductor Trace</span>
+            <span class="text-white font-bold">24k Gold Deposition</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 5. BESPOKE AUDIO TUNING STUDIO CONFIGURATOR -->
+  <!-- ========================================================================= -->
+  <section id="configurator" class="py-28 px-6 md:px-12 max-w-7xl mx-auto space-y-12">
+    
+    <div class="text-center max-w-3xl mx-auto space-y-4">
+      <span class="font-mono text-xs uppercase tracking-[0.25em] text-accentGold block">STUDIO CUSTOMIZATION</span>
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+        Bespoke Craftsmanship Configurator
+      </h2>
+      <p class="text-slate-400 text-sm font-light leading-relaxed">
+        Personalize your planar magnetic transducers with hand-stitched Italian lambskin or acoustic Alcantara, custom balanced cabling, and laser-engraved chassis badges.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <!-- Option 1: Ear Pads -->
+      <div class="p-8 rounded-2xl bg-auraSurface border border-auraBorder space-y-4">
+        <span class="font-mono text-xs text-accentGold uppercase">01 // EAR CUSHIONS</span>
+        <h3 class="text-xl font-bold text-white">Perforated Italian Lambskin</h3>
+        <p class="text-xs text-textMuted leading-relaxed font-light">
+          Maximum sub-bass seal and acoustic isolation with memory foam contours tuned for long fatigue-free studio sessions.
+        </p>
+        <div class="pt-4 flex gap-2 font-mono text-[10px]">
+          <span class="px-2.5 py-1 rounded bg-white/5 text-slate-300 border border-white/10">Lambskin (Std)</span>
+          <span class="px-2.5 py-1 rounded bg-white/5 text-slate-300 border border-white/10">Alcantara +$120</span>
+        </div>
+      </div>
+
+      <!-- Option 2: Headband Arch -->
+      <div class="p-8 rounded-2xl bg-auraSurface border border-auraBorder space-y-4">
+        <span class="font-mono text-xs text-accentCyan uppercase">02 // SUSPENSION ARCH</span>
+        <h3 class="text-xl font-bold text-white">Aerospace Beryllium & Carbon</h3>
+        <p class="text-xs text-textMuted leading-relaxed font-light">
+          Ultra-lightweight 380g total headset weight distributing clamping pressure evenly across 14 calibrated contact points.
+        </p>
+        <div class="pt-4 flex gap-2 font-mono text-[10px]">
+          <span class="px-2.5 py-1 rounded bg-white/5 text-slate-300 border border-white/10">Obsidian Finish</span>
+          <span class="px-2.5 py-1 rounded bg-white/5 text-slate-300 border border-white/10">Titanium Raw</span>
+        </div>
+      </div>
+
+      <!-- Option 3: Balanced Cable -->
+      <div class="p-8 rounded-2xl bg-auraSurface border border-auraBorder space-y-4">
+        <span class="font-mono text-xs text-accentViolet uppercase">03 // BALANCED TERMINATION</span>
+        <h3 class="text-xl font-bold text-white">4.4mm Pentaconn Monocrystalline</h3>
+        <p class="text-xs text-textMuted leading-relaxed font-light">
+          8-core high-purity OCC silver-plated copper cabling with gold-plated custom alloy connectors and zero cross-talk.
+        </p>
+        <div class="pt-4 flex gap-2 font-mono text-[10px]">
+          <span class="px-2.5 py-1 rounded bg-white/5 text-slate-300 border border-white/10">4.4mm Balanced</span>
+          <span class="px-2.5 py-1 rounded bg-white/5 text-slate-300 border border-white/10">4-Pin XLR</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Final Reservation Box -->
+    <div class="p-8 md:p-12 rounded-3xl bg-gradient-to-br from-auraSurface to-black border border-auraBorder flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
+      <div class="space-y-2">
+        <h3 class="text-2xl font-bold text-white">Handcrafted in Geneva Atelier</h3>
+        <p class="text-xs text-slate-400 font-light">Each pair is individually measured, calibrated, and certified with serialized frequency response graph.</p>
+      </div>
+      <div class="flex items-center gap-4">
+        <span class="text-2xl font-bold text-accentGold font-mono">$1,890 USD</span>
+        <button onclick="alert('Aura Planar-1 configured! Order reservation reserved in queue.')" class="px-8 py-3.5 rounded-full bg-accentGold hover:bg-amber-400 text-black font-bold font-mono text-xs uppercase tracking-wider transition-all shadow-lg shadow-amber-500/25">
+          Reserve Build &rarr;
+        </button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- 6. FOOTER -->
+  <!-- ========================================================================= -->
+  <footer class="w-full border-t border-white/5 bg-auraDark py-12 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      
+      <div class="flex items-center gap-3">
+        <div class="w-7 h-7 rounded bg-white/10 flex items-center justify-center font-mono text-xs font-bold text-accentGold">A1</div>
+        <span class="font-mono text-xs text-textMuted">AURA ACOUSTIC LABS // GENEVA 2026</span>
+      </div>
+
+      <div class="flex items-center gap-6 font-mono text-xs text-textMuted">
+        <a href="/" class="hover:text-white transition-colors">Collection Hub</a>
+        <a href="/valence" class="hover:text-white transition-colors">Valence</a>
+        <a href="/valkyrie" class="hover:text-white transition-colors">Valkyrie</a>
+        <a href="/aurelia" class="hover:text-white transition-colors">Aurelia</a>
+        <a href="/voyage" class="hover:text-white transition-colors">Voyage 360°</a>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- 7. SCROLL-BOUND VIDEO SCRUBBER & FREQUENCY CANVAS ENGINE -->
+  <!-- ========================================================================= -->
+  <script>
+    // 1. In-Memory Video Blob Preloader
+    const heroVideo = document.getElementById('hero-video');
+    const scrollSection = document.getElementById('hero-scroll');
+    const stageTitle = document.getElementById('stage-title');
+    const stageDesc = document.getElementById('stage-desc');
+    const scrollHint = document.getElementById('scroll-hint');
+
+    fetch('/aura/assets/hero.mp4')
+      .then(res => {
+        if (!res.ok) throw new Error('Video fetch failed');
+        return res.blob();
+      })
+      .then(blob => {
+        heroVideo.src = URL.createObjectURL(blob);
+      })
+      .catch(err => {
+        console.warn('Fallback stream:', err);
+        heroVideo.src = '/aura/assets/hero.mp4';
+      });
+
+    // 2. Normalized Scroll Scrubber
+    let targetProgress = 0;
+    let currentProgress = 0;
+
+    const stages = [
+      {
+        start: 0.0, end: 0.25,
+        title: "Layer 01 // Open-Back Aerodynamic Grille",
+        desc: "CNC-machined aerospace grade beryllium housing eliminating back-wave acoustic pressure."
+      },
+      {
+        start: 0.25, end: 0.55,
+        title: "Layer 02 // Symmetrical N52 Neodymium Matrix",
+        desc: "High-density push-pull magnetic field generating 1.85 Tesla across the entire surface."
+      },
+      {
+        start: 0.55, end: 0.80,
+        title: "Layer 03 // 0.5µm Gold-Etched Planar Diaphragm",
+        desc: "Nanometer-thick etched gold circuit trace responding instantaneously from 5 Hz to 55,000 Hz."
+      },
+      {
+        start: 0.80, end: 1.0,
+        title: "Layer 04 // Hand-Stitched Lambskin Acoustic Seal",
+        desc: "Contoured memory foam delivering optimal ear canal volume and linear sub-bass extension."
+      }
+    ];
+
+    function updateScroll() {
+      if (!scrollSection || !heroVideo) return;
+      const rect = scrollSection.getBoundingClientRect();
+      const totalScroll = scrollSection.offsetHeight - window.innerHeight;
+      const currentScroll = -rect.top;
+      
+      let p = Math.max(0, Math.min(1, currentScroll / totalScroll));
+      targetProgress = p;
+
+      // Lerp smoothing
+      currentProgress += (targetProgress - currentProgress) * 0.12;
+
+      if (heroVideo.duration) {
+        heroVideo.currentTime = currentProgress * heroVideo.duration;
+      }
+
+      // Update stage info
+      const activeStage = stages.find(s => currentProgress >= s.start && currentProgress <= s.end) || stages[0];
+      stageTitle.innerText = activeStage.title;
+      stageDesc.innerText = activeStage.desc;
+
+      if (currentProgress > 0.05) {
+        scrollHint.style.opacity = '0';
+      } else {
+        scrollHint.style.opacity = '1';
+      }
+
+      requestAnimationFrame(updateScroll);
+    }
+
+    requestAnimationFrame(updateScroll);
+
+    // =========================================================================
+    // 3. INTERACTIVE FREQUENCY RESPONSE CANVAS
+    // =========================================================================
+    const canvas = document.getElementById('freq-canvas');
+    const ctx = canvas.getContext('2d');
+    let currentCurveMode = 'harman';
+
+    function drawFrequencyCanvas() {
+      const cw = canvas.width;
+      const ch = canvas.height;
+      ctx.clearRect(0, 0, cw, ch);
+
+      // Grid background
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+      ctx.lineWidth = 1;
+      for (let x = 0; x < cw; x += 100) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, ch);
+        ctx.stroke();
+      }
+      for (let y = 0; y < ch; y += 50) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(cw, y);
+        ctx.stroke();
+      }
+
+      // 0dB reference line
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+      ctx.beginPath();
+      ctx.moveTo(0, ch * 0.5);
+      ctx.lineTo(cw, ch * 0.5);
+      ctx.stroke();
+
+      // Draw Curve
+      ctx.beginPath();
+      ctx.lineWidth = 3;
+      
+      if (currentCurveMode === 'harman') {
+        ctx.strokeStyle = '#d4a359'; // Gold
+      } else if (currentCurveMode === 'flat') {
+        ctx.strokeStyle = '#38bdf8'; // Cyan
+      } else {
+        ctx.strokeStyle = '#34d399'; // Emerald
+      }
+
+      for (let x = 0; x < cw; x++) {
+        const normX = x / cw;
+        let yOffset = 0;
+
+        if (currentCurveMode === 'harman') {
+          // Harman target curve: bass boost (+5dB), neutral mid, ear gain pinna peak at 3kHz (+8dB)
+          const bass = Math.exp(-normX * 6) * 45;
+          const pinna = Math.exp(-Math.pow(normX - 0.65, 2) * 50) * -55;
+          const air = Math.exp(-Math.pow(normX - 0.9, 2) * 80) * -20;
+          yOffset = -bass + pinna + air;
+        } else if (currentCurveMode === 'flat') {
+          // Aura flat: linear ruler flat bass/mid with subtle 3kHz compensation
+          const pinna = Math.exp(-Math.pow(normX - 0.65, 2) * 60) * -35;
+          yOffset = pinna;
+        } else {
+          // Sub-bass extended
+          const bass = Math.exp(-normX * 4) * 75;
+          const pinna = Math.exp(-Math.pow(normX - 0.65, 2) * 50) * -45;
+          yOffset = -bass + pinna;
+        }
+
+        const y = ch * 0.5 + yOffset;
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+
+    function setCurve(mode) {
+      currentCurveMode = mode;
+      document.getElementById('btn-harman').className = mode === 'harman' ? 'px-4 py-2 rounded-lg bg-accentGold text-black font-bold transition-all' : 'px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 transition-all';
+      document.getElementById('btn-flat').className = mode === 'flat' ? 'px-4 py-2 rounded-lg bg-accentCyan text-black font-bold transition-all' : 'px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 transition-all';
+      document.getElementById('btn-bass').className = mode === 'bass' ? 'px-4 py-2 rounded-lg bg-emerald-400 text-black font-bold transition-all' : 'px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 transition-all';
+      drawFrequencyCanvas();
+    }
+
+    drawFrequencyCanvas();
+
+    // =========================================================================
+    // 4. WEB AUDIO TONE GENERATOR
+    // =========================================================================
+    let toneCtx = null;
+
+    function playTestTone(freq) {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!toneCtx) toneCtx = new AudioContext();
+      if (toneCtx.state === 'suspended') toneCtx.resume();
+
+      const osc = toneCtx.createOscillator();
+      const gain = toneCtx.createGain();
+
+      osc.type = freq < 100 ? 'sine' : 'sine';
+      osc.frequency.setValueAtTime(freq, toneCtx.currentTime);
+
+      gain.gain.setValueAtTime(0, toneCtx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.2, toneCtx.currentTime + 0.05);
+      gain.gain.linearRampToValueAtTime(0, toneCtx.currentTime + 0.6);
+
+      osc.connect(gain);
+      gain.connect(toneCtx.destination);
+
+      osc.start();
+      osc.stop(toneCtx.currentTime + 0.65);
+    }
+  </script>
+
+</body>
+</html>

@@ -1,10 +1,10 @@
 # AntiF — The One-Shot Hero Showcase & Landing Page Collection
 
-A curated exhibition of autonomous, video-scrubbing hero landing pages and interactive 3D studio viewers built with the [One-Shot Landing Page Skill](https://github.com/nroadley/Creating-Oneshot-Hero-Landing-Pages).
+A curated exhibition of autonomous, video-scrubbing hero landing pages, 3D spatial studio viewers, and cyber-acoustic explorers built with the [One-Shot Landing Page Skill](https://github.com/nroadley/Creating-Oneshot-Hero-Landing-Pages).
 
 ---
 
-## 🌟 The 4 Flagship Masterpieces
+## 🌟 The 5 Flagship Masterpieces
 
 | # | Project | Archetype | Tech Highlights | Live Directory |
 | :--- | :--- | :--- | :--- | :--- |
@@ -12,16 +12,18 @@ A curated exhibition of autonomous, video-scrubbing hero landing pages and inter
 | **02** | **🏁 Valkyrie C41** | *Stealth Aero Telemetry & Composite Matrix* | Live telemetry axis (distance, 18mm micro-flex, $C_d A$ curve), 4-zone carbon layup matrix, race course simulator | [`/valkyrie/`](./valkyrie/) |
 | **03** | **🏛️ Maison Aurelia** | *50/50 Pinned Viewport Runway Monolith* | Pinned left sapphire tourbillon video viewport, French chapter narrative, full-bleed lookbook, zero spec tables | [`/aurelia/`](./aurelia/) |
 | **04** | **🚙 Voyage Omni-7** | *Spatial 360° Drag-to-Rotate EV Studio* | 36 Exterior frames ($12\text{ az} \times 3\text{ el}$) + 8 rich cockpit viewpoints, live floating part tags, slide-in specs drawer | [`/voyage/`](./voyage/) |
+| **05** | **🎧 Aura Planar-1** | *Cyber-Acoustic Exploded Transducer Scrubber* | 400vh Exploded planar magnetic driver scrubber, real-time frequency response canvas (Harman vs Flat), Web Audio tone generator, custom atelier configurator | [`/aura/`](./aura/) |
 
 ---
 
 ## 🚀 Live Production Deployments
 
 * 🌐 **Master Exhibition Hub**: [https://gemini-antif.vercel.app](https://gemini-antif.vercel.app)
-* ⚡ **Valence Semiconductor**: [https://gemini-antif.vercel.app/valence](https://gemini-antif.vercel.app/valence)
-* 🏁 **Valkyrie C41 Racing**: [https://gemini-antif.vercel.app/valkyrie](https://gemini-antif.vercel.app/valkyrie)
-* 🏛️ **Maison Aurelia**: [https://gemini-antif.vercel.app/aurelia](https://gemini-antif.vercel.app/aurelia)
+* 🎧 **Aura Planar-1 Headphones**: [https://gemini-antif.vercel.app/aura](https://gemini-antif.vercel.app/aura)
 * 🚙 **Voyage Omni-7 EV Studio**: [https://gemini-antif.vercel.app/voyage](https://gemini-antif.vercel.app/voyage)
+* 🏛️ **Maison Aurelia**: [https://gemini-antif.vercel.app/aurelia](https://gemini-antif.vercel.app/aurelia)
+* 🏁 **Valkyrie C41 Racing**: [https://gemini-antif.vercel.app/valkyrie](https://gemini-antif.vercel.app/valkyrie)
+* ⚡ **Valence Semiconductor**: [https://gemini-antif.vercel.app/valence](https://gemini-antif.vercel.app/valence)
 
 ---
 
