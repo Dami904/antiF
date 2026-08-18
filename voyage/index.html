@@ -185,7 +185,7 @@
     
     <!-- Vehicle Image Container -->
     <div class="relative w-full h-full max-w-7xl max-h-[85vh] flex items-center justify-center">
-      <img id="viewer-image" src="./assets/ext_az000_el1.png" alt="Voyage Omni-7 EV" class="w-full h-full object-contain pointer-events-none drop-shadow-2xl transition-opacity duration-100" />
+      <img id="viewer-image" src="/voyage/assets/ext_az000_el1.png" alt="Voyage Omni-7 EV" class="w-full h-full object-contain pointer-events-none drop-shadow-2xl transition-opacity duration-100" />
       
       <!-- Interactive Hotspots Layer -->
       <div id="hotspots-layer" class="absolute inset-0 pointer-events-auto"></div>
@@ -558,13 +558,13 @@
     // =========================================================================
     function getExteriorImagePath(azimuth, elevation) {
       const azStr = String(azimuth).padStart(3, '0');
-      return `./assets/ext_az${azStr}_el${elevation}.png`;
+      return `/voyage/assets/ext_az${azStr}_el${elevation}.png`;
     }
 
     function getInteriorImagePath(direction, tilt) {
-      if (tilt === 'up') return `./assets/int_sunroof.png`;
-      if (tilt === 'down') return `./assets/int_console.png`;
-      return `./assets/int_${direction}.png`;
+      if (tilt === 'up') return `/voyage/assets/int_sunroof.png`;
+      if (tilt === 'down') return `/voyage/assets/int_console.png`;
+      return `/voyage/assets/int_${direction}.png`;
     }
 
     async function preloadAllAssets() {

@@ -244,7 +244,7 @@
       <!-- Visual Metric Showcase (Clean, Typography & High-Res Micro-Photography) -->
       <div class="lg:col-span-7 space-y-6">
         <div class="relative rounded-xl overflow-hidden border border-slate-200 bg-white shadow-xs">
-          <img src="./assets/hero_ref.jpg" alt="Valence Aurora X1 Ceramic Motherboard" class="w-full h-80 sm:h-96 object-cover" />
+          <img src="/assets/hero_ref.jpg" alt="Valence Aurora X1 Ceramic Motherboard" class="w-full h-80 sm:h-96 object-cover" />
           <div class="p-6 bg-white/95 backdrop-blur-md border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <span class="font-mono text-[10px] uppercase tracking-wider text-slate-400 block">Substrate Specification</span>
@@ -310,7 +310,7 @@
         
         <!-- Video Showcase Loop / Die Visualizer -->
         <div class="lg:col-span-7 relative rounded-xl overflow-hidden border border-slate-200 bg-black aspect-video flex items-center justify-center shadow-md group">
-          <video id="showcase-video" class="w-full h-full object-cover" autoplay muted loop playsinline src="./assets/showcase.mp4"></video>
+          <video id="showcase-video" class="w-full h-full object-cover" autoplay muted loop playsinline src="/assets/showcase.mp4"></video>
           
           <!-- Die Telemetry HUD Overlay -->
           <div class="absolute top-4 left-4 font-mono text-[10px] uppercase bg-black/60 backdrop-blur-md text-white/90 px-3 py-1.5 rounded-sm border border-white/10 flex items-center gap-2">
@@ -406,7 +406,7 @@
       <!-- Left Column: Platform Imagery & Heatsink Architecture -->
       <div class="lg:col-span-7">
         <div class="rounded-xl overflow-hidden border border-slate-200 bg-white shadow-xs relative">
-          <img src="./assets/board_stack.jpg" alt="Modular AI Accelerator Server Platform" class="w-full h-auto object-cover" />
+          <img src="/assets/board_stack.jpg" alt="Modular AI Accelerator Server Platform" class="w-full h-auto object-cover" />
           <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded border border-slate-200 font-mono text-[11px] text-obsidian">
             TITANIUM SERIES MBX // HIGH-BANDWIDTH FABRIC
           </div>
@@ -659,7 +659,7 @@
       const scrollHint = document.getElementById('scroll-hint');
 
       // 1. In-Memory Blob Preloader with fallback
-      fetch('./assets/hero.mp4')
+      fetch('/assets/hero.mp4')
         .then(res => {
           if (!res.ok) throw new Error('Video network response was not ok');
           return res.blob();
@@ -669,7 +669,7 @@
           heroVideo.load();
         })
         .catch(() => {
-          heroVideo.src = './assets/hero.mp4';
+          heroVideo.src = '/assets/hero.mp4';
           heroVideo.load();
         });
 

@@ -340,7 +340,7 @@
         
         <!-- Video Showcase Loop / Visualizer -->
         <div class="lg:col-span-7 relative rounded-xl overflow-hidden border border-carbonBorder aspect-video bg-black flex items-center justify-center shadow-2xl">
-          <video id="cockpit-video" class="w-full h-full object-cover" autoplay muted loop playsinline src="./assets/showcase.mp4"></video>
+          <video id="cockpit-video" class="w-full h-full object-cover" autoplay muted loop playsinline src="/valkyrie/assets/showcase.mp4"></video>
           
           <div class="absolute top-4 left-4 font-mono text-[10px] uppercase bg-black/70 backdrop-blur-md text-white px-3 py-1.5 rounded border border-white/10 flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-bronzeGold animate-pulse"></span>
@@ -424,15 +424,17 @@
       
       <!-- Left Column: Cockpit Photography -->
       <div class="lg:col-span-7 space-y-6">
-        <div class="rounded-xl overflow-hidden border border-carbonBorder bg-basalt shadow-2xl relative">
-          <img src="./assets/cockpit.jpg" alt="Valkyrie Carbon Aero Cockpit" class="w-full h-auto object-cover" />
-          <div class="absolute bottom-4 left-4 bg-black/80 backdrop-blur-md px-4 py-2 rounded border border-white/10 font-mono text-[11px] text-white">
-            AERO DROP BAR // 16° FLARED DROPS
+        <div class="rounded-xl overflow-hidden border border-carbonBorder bg-slate-900/40 relative group">
+          <img src="/valkyrie/assets/cockpit.jpg" alt="Valkyrie Carbon Aero Cockpit" class="w-full h-auto object-cover" />
+          <div class="p-6">
+            <span class="font-mono text-[10px] text-bronzeGold uppercase tracking-widest block mb-1">01 // FLUID COCKPIT</span>
+            <h3 class="text-lg font-bold text-white mb-2">Integrated Cable-Free Barstem</h3>
+            <p class="text-xs text-slate-400 font-light leading-relaxed">Full internal mechanical routing through oversized headtube bearing with zero exposed cables.</p>
           </div>
         </div>
 
-        <div class="rounded-xl overflow-hidden border border-carbonBorder bg-basalt shadow-2xl relative">
-          <img src="./assets/frame_macro.jpg" alt="Valkyrie Rear Triangle and Hydraulic Calipers" class="w-full h-auto object-cover" />
+        <div class="rounded-xl overflow-hidden border border-carbonBorder bg-slate-900/40 relative group">
+          <img src="/valkyrie/assets/frame_macro.jpg" alt="Valkyrie Rear Triangle and Hydraulic Calipers" class="w-full h-auto object-cover" />
           <div class="absolute bottom-4 left-4 bg-black/80 backdrop-blur-md px-4 py-2 rounded border border-white/10 font-mono text-[11px] text-white">
             DIRECT FLAT MOUNT 160MM // TITANIUM THRU-AXLE
           </div>
@@ -718,19 +720,29 @@
       const liveDist = document.getElementById('live-distance');
       const liveDeflection = document.getElementById('live-deflection');
 
-      // 1. In-Memory Blob Preloader with fallback
-      fetch('./assets/hero.mp4')
+      // 1. In-Memory Blob Preload
+      const heroPreload = document.getElementById('hero-preload');
+
+      fetch('/valkyrie/assets/hero.mp4')
         .then(res => {
-          if (!res.ok) throw new Error('Video network response was not ok');
+          if (!res.ok) throw new Error('Video fetch failed');
           return res.blob();
         })
         .then(blob => {
-          heroVideo.src = URL.createObjectURL(blob);
-          heroVideo.load();
+          const blobUrl = URL.createObjectURL(blob);
+          heroVideo.src = blobUrl;
         })
-        .catch(() => {
-          heroVideo.src = './assets/hero.mp4';
-          heroVideo.load();
+        .catch(err => {
+          console.warn('Fallback to direct stream:', err);
+          if (heroVideo) {
+            heroVideo.src = '/valkyrie/assets/hero.mp4';
+          }
+        })
+        .finally(() => {
+          if (heroPreload) {
+            heroPreload.style.opacity = '0';
+            setTimeout(() => heroPreload.style.display = 'none', 500);
+          }
         });
 
       // 2. Normalized Scroll Progress
