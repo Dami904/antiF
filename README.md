@@ -1,7 +1,7 @@
 # AntiF // Next-Gen Autonomous Interactive Hero Experiences
 
 [![Production](https://img.shields.io/badge/Vercel-Live%20Production-black?style=flat&logo=vercel)](https://gemini-antif.vercel.app)
-[![Archetypes](https://img.shields.io/badge/Archetypes-05%20Bespoke-cyan?style=flat)](https://gemini-antif.vercel.app)
+[![Archetypes](https://img.shields.io/badge/Archetypes-06%20Bespoke-cyan?style=flat)](https://gemini-antif.vercel.app)
 [![Skill Spec](https://img.shields.io/badge/Skill-One--Shot%20Hero%20Landing%20Pages-gold?style=flat)](https://github.com/nroadley/Creating-Oneshot-Hero-Landing-Pages)
 [![Zero Dependency](https://img.shields.io/badge/Dependencies-0%20Pure%20Vanilla-emerald?style=flat)]()
 
@@ -19,10 +19,11 @@ A master portfolio exhibition of autonomous, single-page interactive experiences
 | **03** | **💎 Maison Aurelia** | *50/50 Pinned Viewport Runway Monolith* | [**gemini-antif.vercel.app/aurelia**](https://gemini-antif.vercel.app/aurelia) |
 | **04** | **🚙 Voyage Omni-7 EV** | *Spatial 360° Drag-to-Rotate EV Studio + Hotspots* | [**gemini-antif.vercel.app/voyage**](https://gemini-antif.vercel.app/voyage) |
 | **05** | **🎧 Aura Planar-1** | *Cyber-Acoustic Exploded Transducer Scrubber* | [**gemini-antif.vercel.app/aura**](https://gemini-antif.vercel.app/aura) |
+| **06** | **🧠 Lethe Graph Memory** | *Temporal Graph Agent Memory on HydraDB & Point-in-Time Recall* | [**gemini-antif.vercel.app/lethe**](https://gemini-antif.vercel.app/lethe) |
 
 ---
 
-## 🌟 The 5 Flagship Archetypes
+## 🌟 The 6 Flagship Archetypes
 
 ### 1. ⚡ Valence Microsystems (`/valence`)
 * **Domain**: Advanced semiconductor packaging & AI accelerator compute dies.
