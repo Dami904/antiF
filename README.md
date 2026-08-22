@@ -65,6 +65,14 @@ A master portfolio exhibition of autonomous, single-page interactive experiences
   * **Web Audio Tone Generator**: Interactive acoustic tone test playing 30Hz Sub-bass, 1,000Hz Vocal, 8,000Hz Treble, and 16,000Hz Air.
   * **Bespoke Atelier Configurator**: Material selector for hand-stitched Italian Lambskin or Alcantara cushions, Beryllium arch finish, and 4.4mm Pentaconn balanced cables.
 
+### 6. 🧠 Lethe Graph Memory (`/lethe`)
+* **Domain**: Temporal, self-correcting agent memory system on HydraDB.
+* **Hero Interaction**: Dynamic scroll-velocity tilting canvas with interactive point-in-time time-travel memory playground and Cypher path discovery.
+* **Interactive Modules**:
+  * **Point-in-Time Recall**: Temporal slider reconstructing agent memory graph state at any historical moment.
+  * **SUPERSEDES Graph Invalidation**: Explicit directional edge invalidation replacing naive cosine vector search.
+  * **Cypher Path Explorer**: Real-time graph node queries and traversal verification.
+
 ---
 
 ## 🎵 Real-Time Audio Engine & Hero Montage

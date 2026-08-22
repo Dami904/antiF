@@ -16,3 +16,6 @@ Desktop.ini
 .DS_Store
 
 .vercel
+scratch/
+node_modules/
+dist/
